@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserJwtFromLocalStorage } from '../utils/localStorageForUser';
-
-const api_base_url = 'http://localhost:3000/api/v1';
+import { api_base_url } from '../utils/api_url';
 
 export const createInstructor = createAsyncThunk('instructors/new', async (instructorData, { rejectWithValue }) => {
   try {
@@ -18,7 +17,7 @@ export const createInstructor = createAsyncThunk('instructors/new', async (instr
       message: error,
     }));
     return rejectWithValue(errorMessages);
-  };
+  }
 });
 
 export const getInstructors = createAsyncThunk('instructors', async (_, { rejectWithValue, dispatch }) => {
@@ -68,30 +67,27 @@ const instructorSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createInstructor.pending, async(state) => {
+    builder.addCase(createInstructor.pending, async (state) => {
       state.loading = true;
       state.error = null;
     })
-    .addCase(createInstructor.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.instructors.push(action.payload);
-    })
-    .addCase(createInstructor.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(getInstructors.pending, async(state) => {
-      return {
+      .addCase(createInstructor.fulfilled, async (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.instructors.push(action.payload);
+      })
+      .addCase(createInstructor.rejected, async (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getInstructors.pending, (state) => ({
         ...state,
         instructors: {
           ...state.instructors,
           loading: true,
-        }
-      }
-    })
-    .addCase(getInstructors.fulfilled, async(state, action) => {
-      return {
+        },
+      }))
+      .addCase(getInstructors.fulfilled, (state, action) => ({
         ...state,
         instructors: {
           ...state.instructors,
@@ -99,25 +95,24 @@ const instructorSlice = createSlice({
         },
         error: null,
         loading: false,
-      }
-    })
-    .addCase(getInstructors.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteInstructor.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteInstructor.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.instructors = state.instructors.filter((instructor) => instructor.id !== action.payload.id);
-    })
-    .addCase(deleteInstructor.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+      }))
+      .addCase(getInstructors.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteInstructor.pending, async (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteInstructor.fulfilled, async (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.instructors = state.instructors.filter((instructor) => instructor.id !== action.payload.id);
+      })
+      .addCase(deleteInstructor.rejected, async (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

@@ -1,8 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserJwtFromLocalStorage } from '../utils/localStorageForUser';
-
-const api_base_url = 'http://localhost:3000/api/v1';
+import { api_base_url } from '../utils/api_url';
 
 export const createOption = createAsyncThunk('options/new', async ({ questionId, optionData }, { rejectWithValue }) => {
   try {
@@ -18,7 +17,7 @@ export const createOption = createAsyncThunk('options/new', async ({ questionId,
       message: err,
     }));
     return rejectWithValue(errorMessages);
-  };
+  }
 });
 
 export const getOptions = createAsyncThunk('options', async (questionId, { rejectWithValue }) => {
@@ -39,7 +38,7 @@ export const getOptionById = createAsyncThunk('options/id', async ({ questionId,
   }
 });
 
-export const deleteOption = createAsyncThunk('options/delete', async ({questionId, optionId}, { rejectWithValue }) => {
+export const deleteOption = createAsyncThunk('options/delete', async ({ questionId, optionId }, { rejectWithValue }) => {
   try {
     const response = await axios.delete(`${api_base_url}/questions/${questionId}/options/${optionId}`, {
       headers: {
@@ -63,45 +62,45 @@ const optionSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createOption.pending, async(state) => {
+    builder.addCase(createOption.pending, async (state) => {
       state.loading = true;
       state.error = null;
     })
-    .addCase(createOption.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.options.push(action.payload);
-    })
-    .addCase(createOption.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(getOptions.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(getOptions.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.options = action.payload;
-    })
-    .addCase(getOptions.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteOption.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteOption.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.options = state.options.filter((option) => option.id !== action.payload.id);
-    })
-    .addCase(deleteOption.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+      .addCase(createOption.fulfilled, async (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.options.push(action.payload);
+      })
+      .addCase(createOption.rejected, async (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getOptions.pending, async (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getOptions.fulfilled, async (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.options = action.payload;
+      })
+      .addCase(getOptions.rejected, async (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteOption.pending, async (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteOption.fulfilled, async (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.options = state.options.filter((option) => option.id !== action.payload.id);
+      })
+      .addCase(deleteOption.rejected, async (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

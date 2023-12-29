@@ -1,37 +1,38 @@
 import React, { useEffect, useState } from 'react';
+// eslint-disable-next-line
+import { PropTypes } from 'prop-types';
 
 export default function LinearProgress({ percentage }) {
   const [progress, setProgress] = useState(0);
   const [percentile, setPercentile] = useState(0);
-  let timer = 1000/percentage;
+  const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  const timer = 1000 / percentage;
+
   useEffect(() => {
     setProgress(percentage);
   }, [percentage]);
 
-  var timing;
-
   useEffect(() => {
-      timing = setInterval(() => {
-        if(percentile < percentage) {
-          setPercentile(percentile + 1);
-        }
-      },timer);
+    const timing = setInterval(() => {
+      if (percentile < percentage) {
+        setPercentile(percentile + 1);
+      }
+    }, timer);
     return () => clearInterval(timing);
-  },[percentile]);
+  }, [percentile, percentage, timer]);
 
-  const viewBox = `100 100`;
+  const viewBox = '100 100';
   const dash = (progress * 300) / 100;
 
   function percentageColor() {
-    if(percentage < 40) {
-      return "red";
+    if (percentage < 40) {
+      return 'red';
     }
-    else if (percentage >= 40 && percentage < 70) {
-      return "yellow";
+    if (percentage >= 40 && percentage < 70) {
+      return 'yellow';
     }
-    else {
-      return "green";
-    }
+
+    return 'green';
   }
 
   return (
@@ -43,7 +44,7 @@ export default function LinearProgress({ percentage }) {
         y1={10}
         x2={300}
         y2={10}
-        strokeWidth={`10px`}
+        strokeWidth="10px"
         strokeLinecap="round"
       />
       <line
@@ -53,14 +54,14 @@ export default function LinearProgress({ percentage }) {
         y1={10}
         x2={percentage * 3}
         y2={10}
-        strokeWidth={`10px`}
+        strokeWidth="10px"
         // transform={`rotate(-90 125 125)`}
         strokeDasharray={[dash, 300 - dash]}
         strokeLinecap="round"
-        style={{ transition: "linear 1s" }}
+        style={{ transition: 'linear 1s' }}
       />
       <text
-        fill="#0f0f47"
+        fill={isDarkMode ? '#fff' : '#0f0f47'}
         fontSize="1.2em"
         x="65%"
         y="15%"
@@ -72,3 +73,7 @@ export default function LinearProgress({ percentage }) {
     </svg>
   );
 }
+
+LinearProgress.propTypes = {
+  percentage: PropTypes.number.isRequired,
+};

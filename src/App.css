@@ -26,10 +26,43 @@ li {
 }
 
 /*** BACKGROUND DESIGN ***/
+
+.dark-mode {
+  background-color: rgba(11, 19, 36);
+  min-height: 100vh;
+  color: white;
+  z-index: -2;
+}
+
+.black-txt {
+  color: black;
+}
+
+.white-txt {
+  color: white;
+}
+
+.black-bg {
+  background-color: rgb(41, 39, 39);
+}
+
+.primary-bg {
+  background-color: var(--grey-1);
+}
+
+.blue-bg {
+  background-color: rgb(15, 15, 71);
+}
+
+.red-bg {
+  background-color: red;
+}
+
 .shape-ellipse {
   position: absolute;
   right: 0%;
   top: 10%;
+  z-index: 0;
 }
 
 .shape-rectangle {
@@ -48,7 +81,6 @@ li {
 .shape-ellipse1 {
   position: absolute;
   top: 40%;
-  left: 5%;
 }
 
 .shape-ellipse2 {
@@ -61,13 +93,18 @@ li {
 /*** LOGIN/SIGNUP ***/
 .login-body,
 .signup-body {
-  background-color: var(--grey-1);
+  background: rgb(143,175,222);
+  background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
   height: 100vh;
   margin-inline-start: 0%;
   margin-block-start: 0%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.right-col {
+  display: none;
 }
 
 .login-body h1,
@@ -95,10 +132,11 @@ li {
   margin-bottom: 1em;
   border-radius: 5px;
   border: none;
+  padding: 0 1em;
 }
 
 .submit {
-  background-color: green;
+  background-color: var(--primary-color);
   color: white;
   font-size: 1.2em;
   width: 20em;
@@ -132,6 +170,80 @@ li {
   font-style: italic;
 }
 
+/***** NAVBAR *****/
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.light,
+.dark {
+  width: 2.3em;
+  height: 2.3em;
+  padding: 0.3em;
+  background-color: var(--grey-color);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.light:hover,
+.dark:hover {
+  background-color: rgb(65, 56, 56);
+}
+
+.toggle-dark-mode:hover {
+  background-color: rgba(0, 0, 0, 0.527);
+}
+
+.nav-links {
+  background-color: var(--primary-color);
+  padding: 0 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35%;
+  border-radius: 20px;
+  margin-right: 2em;
+  position: relative;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-down {
+  width: 1em;
+  height: 1em;
+}
+
+.profile {
+  width: 2.5em;
+}
+
+.profile-details {
+  background-color: var(--grey-1);
+  padding: 0.5em;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  z-index: 999;
+  transition: 0.5s;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  opacity: 1;
+}
+
+.none {
+  background-color: var(--grey-1);
+  padding: 0.5em;
+  position: absolute;
+  top: 100%;
+  z-index: 999;
+  opacity: 0;
+}
+
 /***** HOMEPAGE *****/
 
 /***** SIDEBAR *****/
@@ -146,6 +258,16 @@ li {
   background-color: var(--primary-color);
   transition: 0.8s;
   z-index: 999;
+}
+
+.eleesa-logo {
+  width: 4em;
+  border-radius: 50%;
+  margin: 1em;
+}
+
+.desktop-sidebar-container {
+  display: none;
 }
 
 .no-sidebar {
@@ -170,6 +292,7 @@ li {
 .side-link a {
   color: rgb(224, 204, 204);
 }
+
 .side-link img {
   width: 2em;
 }
@@ -177,18 +300,20 @@ li {
 .menu-head {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
 .close-btn {
-  width: 2.5em;
+  width: 2.2em;
 }
 
 /*** col-2 ***/
 
 .trigram {
   width: 3em;
-  margin-left: 1em;
   display: block;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .no-trigram {
@@ -212,9 +337,26 @@ li {
   margin-top: 2em;
 }
 
+.desktop-progress {
+  display: none;
+}
+
+.phone-progress {
+  display: block;
+}
+
 .sub-progress {
   display: flex;
-  gap: 290px;
+}
+
+.progress-name {
+  width: 10em;
+  margin-right: 170px;
+}
+
+.linear-progresses {
+  width: 90%;
+  margin: auto;
 }
 
 /*** ANNOUNCEMENT ***/
@@ -225,6 +367,8 @@ li {
   border-radius: 10px;
   margin-top: 3em;
   padding: 0.5em;
+  z-index: 10;
+  position: relative;
 }
 
 .general-announcement {
@@ -244,7 +388,6 @@ li {
 .eleesa-projects {
   display: block;
   text-align: center;
-  color: rgba(0, 0, 0, 0.795);
 }
 
 .projects {
@@ -254,8 +397,21 @@ li {
 .projects-container {
   display: flex;
   margin-top: 1em;
-  overflow: scroll;
+  overflow-x: scroll;
   gap: 0.3em;
+}
+
+.projects-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projects-container::-webkit-scrollbar-track {
+  border-radius: 6px;
+}
+
+.projects-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--primary-color);
 }
 
 .project-container {
@@ -299,7 +455,7 @@ li {
 /*** LOADING BAR ***/
 .loadingbar-container {
   display: flex;
-  gap: 0.7em
+  gap: 0.7em;
 }
 
 .loadingbar-container div {
@@ -330,6 +486,7 @@ li {
   0% {
     transform: scaleY(1);
   }
+
   100% {
     transform: scaleY(0.2);
     border-radius: 50%;
@@ -348,4 +505,610 @@ li {
 .b1,
 .b5 {
   animation: loadingAnim 1s linear 0.5s infinite;
+}
+
+/***  COURSES PAGE  ***/
+
+.courses-page {
+  padding: 1em;
+}
+
+.course-scroll {
+  display: flex;
+  align-items: center;
+}
+
+.course-scroll p {
+  font-size: 1.5em;
+  margin-right: 1em;
+}
+
+.next-courses {
+  margin-top: 1em;
+}
+
+.next-courses img {
+  margin-right: 1em;
+  background-color: var(--grey-color);
+  padding: 0.1em;
+  border-radius: 5px;
+  width: 2em;
+}
+
+.year-courses {
+  min-width: 100vw;
+}
+
+.courses {
+  border-radius: 7px;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto 1em auto;
+}
+
+.course-code,
+.course-name {
+  color: white;
+}
+
+.course-code {
+  background-color: rgb(248, 132, 103);
+  color: black;
+  width: 4em;
+  white-space: normal;
+  text-align: center;
+  font-size: 1.2em;
+  border-radius: 30px;
+  height: 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.1em;
+}
+
+.course-name {
+  font-size: 1.2em;
+  width: 60%;
+  margin: 0 0.3em 0 0.3em;
+  white-space: normal;
+}
+
+.enroll,
+.unenroll,
+.take-quiz {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.enroll p,
+.unenroll p,
+.take-quiz p {
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.courses:nth-child(3n - 1) {
+  background-color: rgb(222, 138, 248);
+}
+
+.courses:nth-child(3n) {
+  background-color: blue;
+}
+
+.courses:nth-child(3n + 1) {
+  background-color: rgb(187, 255, 0);
+}
+
+.courses-container {
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100vw;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  margin-left: -1em;
+  padding: 1em 0;
+}
+
+.courses-container::-webkit-scrollbar {
+  display: none;
+}
+
+.year {
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.sem {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+/* ENROLLED COURSES */
+
+.enrolled-title {
+  font-size: 1.5em;
+  margin-left: 0.5em;
+  margin-top: 2em;
+}
+
+.quiz-text {
+  margin: 0.5em;
+}
+
+/* ALERT MESSAGE */
+@keyframes alert {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.alert-container {
+  background-color: var(--grey-1);
+  width: 70%;
+  right: 0%;
+  position: fixed;
+  z-index: 999;
+  border-radius: 10px;
+  padding: 1em;
+  animation: alert 1s linear;
+}
+
+.no-alert {
+  display: none;
+}
+
+.alert-title-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-alert {
+  width: 1.5em;
+}
+
+.alert-title {
+  font-size: 1.2em;
+  color: red;
+  margin-left: 0.7em;
+}
+
+/*** QUIZZES ***/
+
+.course-wrap {
+  border-radius: 7px;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto 1em auto;
+  background-color: var(--primary-color);
+}
+
+.dialog {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  background-color: rgba(5, 5, 5, 0.315);
+  display: flex;
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.quiz-wrap {
+  background-color: white;
+  border: 1px solid black;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.quiz-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  padding: 0.3em;
+}
+
+.quiz-detail:nth-child(odd) {
+  background-color: var(--grey-color);
+}
+
+.quiz-detail:nth-child(even) {
+  background-color: var(--grey-1);
+}
+
+.quiz-loading,
+.course-loading {
+  width: 30%;
+  margin: auto;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+}
+
+.clock {
+  width: 2em;
+}
+
+/***** QUESTIONS PAGE *****/
+
+.question-container {
+  width: 95%;
+  border-radius: 10px;
+  margin: 4em auto;
+  padding: 1em;
+}
+
+.next-button {
+  background-color: green;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1em;
+  text-align: center;
+  padding: 0.4em;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+}
+
+.show-results {
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+/** CSS ANIMATION **/
+
+.time-bar-wrapper {
+  width: 100%;
+
+  /* overflow: hidden; */
+}
+
+.time-bar {
+  width: 100%;
+  height: 2px;
+  margin-top: 1em;
+  position: absolute;
+}
+
+.example-enter,
+.example1-enter {
+  transform: translateX(0);
+}
+
+.example-enter-active {
+  transform: translateX(-100%);
+  transition: transform 20000ms ease-in-out;
+}
+
+.example1-enter-active {
+  transform: translateX(-100%);
+  transition: transform 60000ms ease-in-out;
+}
+
+.example-exit,
+.example1-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.example-exit-active,
+.example1-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0ms;
+}
+
+/***** RESULTS PAGE *****/
+
+.results-container {
+  padding-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.revision-container {
+  margin-top: 1em;
+  width: 90%;
+  margin: auto;
+}
+
+.revision-question {
+  padding: 0.5em;
+  border: 1px solid rgb(12, 13, 63);
+  margin-bottom: 0.5em;
+  background-color: rgba(203, 211, 211, 0.479);
+  border-radius: 1em;
+}
+
+.ques-img {
+  width: 300px;
+  height: 200px;
+}
+
+.mark {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.correct-answer {
+  color: rgb(23, 23, 92);
+  font-weight: 600;
+}
+
+/***** FOOTER *****/
+
+.footer {
+  margin-top: 3em;
+  background-color: rgb(41, 39, 39);
+  color: white;
+  padding: 1em;
+}
+
+.about-us {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.useful-links {
+  display: flex;
+  justify-content: center;
+}
+
+.web-link {
+  margin-right: 1em;
+}
+
+.ig,
+.email {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.copy-rights {
+  text-align: center;
+  background-color: rgba(11, 19, 36);
+  padding: 0.5em;
+  font-size: 1.2em;
+  color: white;
+}
+
+.user-update-form {
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  width: 80%;
+  margin: 2em auto;
+  padding: 3em;
+  border-radius: 20px;
+  background: rgb(143,175,222);
+  background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
+}
+
+
+/********** DESKTOP SCREEN **********/
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .courses-page {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .year-courses {
+    min-width: 100vw;
+    justify-content: flex-start;
+  }
+
+  .courses {
+    width: 70vw;
+    margin: 1em;
+  }
+
+  .year {
+    margin-left: -12em;
+  }
+
+  .sem {
+    margin-left: -14em;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .year-courses {
+    display: flex;
+  }
+
+  .courses-page {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .courses {
+    width: 35vw;
+    margin-left: 2em;
+  }
+
+  .enrolled-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .footer-container {
+    transform: translateY(3em);
+  }
+
+  /***** SESSION STYLING *****/
+
+  .session-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    background: rgb(143,175,222);
+    background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
+  }
+
+  .session-container {
+    display: flex;
+    width: 70%;
+    height: 65vh;
+    position: absolute;
+  }
+
+  .login-body {
+    width: 25em;
+    height: 65vh;
+  }
+
+  .signup-body {
+    width: 25em;
+    height: 65vh;
+  }
+
+  .right-col {
+    width: 65%;
+    display: block;
+  }
+
+  .right-col-content {
+    position: relative;
+  }
+
+  .background {
+    width: 100%;
+    height: 65vh;
+  }
+
+  .login-logo {
+    width: 15em;
+    border-radius: 50%;
+  }
+
+  .background-cover {
+    position: absolute;
+    top: 0;
+    bottom: 1.4%;
+    right: 0;
+    left: 0;
+    background-color: #151d3d88;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .side-bar {
+    left: 20%;
+  }
+
+  .phone-sidebar {
+    display: none;
+  }
+
+  .close-btn {
+    display: none;
+  }
+
+  .desktop-container {
+    display: flex;
+    height: 89vh;
+  }
+
+  .desktop-sidebar-container {
+    display: block;
+    position: relative;
+    transform: translateY(-5em);
+    height: 97.2vh;
+    width: 250px;
+    background-color: var(--primary-color);
+  }
+
+  .outlet {
+    width: 100%;
+    height: 89vh;
+    overflow: scroll;
+  }
+
+  .outlet::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .outlet::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+
+  .outlet::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: var(--primary-color);
+  }
+
+  .desktop-progress {
+    display: block;
+  }
+
+  .phone-progress {
+    display: none;
+  }
+
+  .progresses {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .linear-progresses {
+    width: 18em;
+    display: flex;
+    backdrop-filter: blur(10px);
+    margin: 0;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    scale: 80%;
+    padding: 1em;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .sub-progress {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grade {
+    font-size: 1.5em;
+  }
+
+  .progress-name {
+    text-align: center;
+    margin: 0;
+    font-size: 1.3em;
+  }
 }

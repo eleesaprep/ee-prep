@@ -1,16 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserFromLocalStorage, getUserJwtFromLocalStorage } from '../utils/localStorageForUser';
-
-const api_base_url = 'http://localhost:3000/api/v1';
+import { api_base_url } from '../utils/api_url';
 
 const user = getUserFromLocalStorage();
 
-export const createProgress = createAsyncThunk('progress/new', async (progressData, { rejectWithValue }) => {
+export const createProgress = createAsyncThunk('progress/new', async ({ courseId, quizId, progressData }, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${api_base_url}/users/${user.id}/progresses`, progressData, {
+    const response = await axios.post(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/progresses`, progressData, {
       headers: {
-        Authorization: `bearer ${getUserJwtFromLocalStorage}`,
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
       },
     });
     return response.data;
@@ -20,7 +19,7 @@ export const createProgress = createAsyncThunk('progress/new', async (progressDa
       message: err,
     }));
     return rejectWithValue(errorMessages);
-  };
+  }
 });
 
 export const getProgresses = createAsyncThunk('progresses', async (_, { rejectWithValue }) => {
@@ -32,9 +31,28 @@ export const getProgresses = createAsyncThunk('progresses', async (_, { rejectWi
   }
 });
 
-export const getProgressById = createAsyncThunk('progresses/id', async (progressId, { rejectWithValue }) => {
+export const getProgressById = createAsyncThunk('progresses/id', async ({ courseId, quizId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${api_base_url}/users/${user.id}}/progresses/${progressId}`);
+    const response = await axios.get(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/progresses/1`, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    return rejectWithValue(error.response.statusText);
+  }
+});
+
+export const updateProgress = createAsyncThunk('progresses/update', async ({
+  courseId, quizId, progressId, progressData,
+}, { rejectWithValue }) => {
+  try {
+    const response = await axios.put(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/progresses/${progressId}`, progressData, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      },
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.statusText);
@@ -65,46 +83,63 @@ const progressSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createProgress.pending, async(state) => {
+    builder.addCase(createProgress.pending, (state) => {
       state.loading = true;
       state.error = null;
     })
-    .addCase(createProgress.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.progresses.push(action.payload);
-    })
-    .addCase(createProgress.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(getProgresses.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(getProgresses.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.progresses = action.payload;
-    })
-    .addCase(getProgresses.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteProgress.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteProgress.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.progresses = state.progresses.filter((progress) => progress.id !== action.payload.id);
-    })
-    .addCase(deleteProgress.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+      .addCase(createProgress.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.progresses = action.payload;
+      })
+      .addCase(createProgress.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getProgresses.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProgresses.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.progresses = action.payload;
+      })
+      .addCase(getProgresses.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getProgressById.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProgressById.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        if (action.payload === null) {
+          state.progresses = [];
+        } else {
+          state.progresses = [action.payload];
+        }
+      })
+      .addCase(getProgressById.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteProgress.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteProgress.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.progresses = state.progresses.filter((progress) => progress.id !== action.payload.id);
+      })
+      .addCase(deleteProgress.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export default progressSlice.reducer
+export default progressSlice.reducer;

@@ -1,14 +1,13 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserJwtFromLocalStorage } from '../utils/localStorageForUser';
+import { api_base_url } from '../utils/api_url';
 
-const api_base_url = 'http://localhost:3000/api/v1';
-
-export const createQuestion = createAsyncThunk('questions/new', async (questionData, { rejectWithValue }) => {
+export const createQuestion = createAsyncThunk('questions/new', async ({ courseId, quizId, questionData }, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${api_base_url}/questions`, questionData, {
+    const response = await axios.post(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/questions`, questionData, {
       headers: {
-        Authorization: `bearer ${getUserJwtFromLocalStorage}`,
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
       },
     });
     return response.data;
@@ -18,30 +17,38 @@ export const createQuestion = createAsyncThunk('questions/new', async (questionD
       message: err,
     }));
     return rejectWithValue(errorMessages);
-  };
+  }
 });
 
-export const getQuestions = createAsyncThunk('questions', async (_, { rejectWithValue }) => {
+export const getQuestions = createAsyncThunk('questions', async ({ courseId, quizId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${api_base_url}/questions`);
+    const response = await axios.get(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/questions`, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      },
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.statusText);
   }
 });
 
-export const getQuestionById = createAsyncThunk('questions/id', async (questionId, { rejectWithValue }) => {
+export const getQuestionById = createAsyncThunk('questions/id', async ({ courseId, quizId, questionId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${api_base_url}/questions/${questionId}`);
+    const response = await axios.get(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/questions/${questionId}`, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      },
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.statusText);
   }
 });
 
-export const deleteQuestion = createAsyncThunk('questions/delete', async (questionId, { rejectWithValue }) => {
+export const deleteQuestion = createAsyncThunk('questions/delete', async ({ courseId, quizId, questionId }, { rejectWithValue }) => {
   try {
-    const response = await axios.delete(`${api_base_url}/questions/${questionId}`, {
+    const response = await axios.delete(`${api_base_url}/courses/${courseId}/quizzes/${quizId}/questions/${questionId}`, {
       headers: {
         Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
       },
@@ -63,45 +70,45 @@ const questionSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createQuestion.pending, async(state) => {
+    builder.addCase(createQuestion.pending, (state) => {
       state.loading = true;
       state.error = null;
     })
-    .addCase(createQuestion.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.questions.push(action.payload);
-    })
-    .addCase(createQuestion.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(getQuestions.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(getQuestions.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.questions = action.payload;
-    })
-    .addCase(getQuestions.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteQuestion.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(deleteQuestion.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.questions = state.questions.filter((question) => question.id !== action.payload.id);
-    })
-    .addCase(deleteQuestion.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    });
+      .addCase(createQuestion.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.questions.push(action.payload);
+      })
+      .addCase(createQuestion.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(getQuestions.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getQuestions.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.questions = action.payload;
+      })
+      .addCase(getQuestions.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteQuestion.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteQuestion.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.questions = state.questions.filter((question) => question.id !== action.payload.id);
+      })
+      .addCase(deleteQuestion.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

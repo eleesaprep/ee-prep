@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { getUserJwtFromLocalStorage } from '../utils/localStorageForUser';
+import { api_base_url } from '../utils/api_url';
 
-const api_base_url = 'http://localhost:3000/api/v1';
-
-export const createCourse = createAsyncThunk('/courses/new', async (coursesData, { rejectWithValue }) => {
+export const createCourse = createAsyncThunk('/courses/new', async (coursesData, { rejectWithValue }) =>
   // Return a Promise that resolves to the data
-  return axios.post(`${api_base_url}/courses`, coursesData, {
+  axios.post(`${api_base_url}/courses`, coursesData, {
     headers: {
       Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
-    }
+    },
   })
     .then((response) => response.data)
     .catch((error) => {
@@ -18,8 +17,7 @@ export const createCourse = createAsyncThunk('/courses/new', async (coursesData,
         message: err,
       }));
       return rejectWithValue(errorMessages);
-    });
-});
+    }));
 
 export const getCourses = createAsyncThunk('courses', async (_, { rejectWithValue }) => {
   try {
@@ -67,62 +65,49 @@ const courseSlice = createSlice({
     error: null,
   },
   extraReducers(builder) {
-    builder.addCase(createCourse.pending, async(state) => {
-      return {
-        ...state,
-        loading: true,
-        error: null,
-      };
-    })
-    .addCase(createCourse.fulfilled, async(state, action) => {
-      return {
+    builder.addCase(createCourse.pending, async (state) => ({
+      ...state,
+      loading: true,
+      error: null,
+    }))
+      .addCase(createCourse.fulfilled, async (state, action) => ({
         loading: false,
         error: null,
         courses: [...state.courses, action.payload],
-      };
-    })
-    .addCase(createCourse.rejected, async(state, action) => {
-      return {
+      }))
+      .addCase(createCourse.rejected, async (state, action) => ({
         ...state,
         loading: false,
         error: action.payload,
-      };
-    })
-    .addCase(getCourses.pending, async(state) => {
-      state.loading = true;
-      state.error = null;
-    })
-    .addCase(getCourses.fulfilled, async(state, action) => {
-      state.loading = false;
-      state.error = null;
-      state.courses = action.payload;
-    })
-    .addCase(getCourses.rejected, async(state, action) => {
-      state.loading = false;
-      state.error = action.payload;
-    })
-    .addCase(deleteCourse.pending, async(state) => {
-      return {
+      }))
+      .addCase(getCourses.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getCourses.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.courses = action.payload;
+      })
+      .addCase(getCourses.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(deleteCourse.pending, (state) => ({
         ...state,
         loading: true,
         error: null,
-      };
-    })
-    .addCase(deleteCourse.fulfilled, async(state, action) => {
-      return {
+      }))
+      .addCase(deleteCourse.fulfilled, (state, action) => ({
         ...state,
         loading: false,
         error: null,
         course: state.courses.filter((course) => course.id !== action.payload.id),
-      };
-    })
-    .addCase(deleteCourse.rejected, async(state, action) => {
-      return {
-        ...state,
-        loading: false,
-        error: action.payload,
-      };
-    });
+      }))
+      .addCase(deleteCourse.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 

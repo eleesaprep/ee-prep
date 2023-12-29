@@ -1,5 +1,5 @@
 export default function LoadingBar() {
-  return(
+  return (
     <div className="loadingbar-container">
       <div className="b1" />
       <div className="b2" />

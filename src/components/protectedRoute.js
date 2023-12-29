@@ -1,17 +1,18 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate } from 'react-router-dom';
+// eslint-disable-next-line
 import { PropTypes } from 'prop-types';
 
-export default function ProtectedRoute({ userAllowed, redirect_to }) {
+export default function ProtectedRoute({ userAllowed, redirectTo }) {
   const navigate = useNavigate();
-  if(userAllowed) return <Outlet />;
-  return navigate(redirect_to);
-};
+  if (userAllowed) return <Outlet />;
+  return navigate(redirectTo);
+}
 
 ProtectedRoute.propTypes = {
   userAllowed: PropTypes.bool.isRequired,
-  redirect_to: PropTypes.string,
+  redirectTo: PropTypes.string,
 };
 
 ProtectedRoute.defaultProps = {
-  redirect_to: '/login',
+  redirectTo: '/login',
 };
