@@ -4,6 +4,7 @@ import { userSignin } from '../redux/userSlice';
 import { getUserFromLocalStorage } from '../utils/localStorageForUser';
 import LoadingBar from './homepage/loadingBar';
 import images from '../utils/images';
+import { Link } from 'react-router-dom';
 
 export default function LoginPage() {
   const [userData, setUserData] = useState({});
@@ -53,7 +54,7 @@ export default function LoginPage() {
           </form>
           <div className="signup-link">
             <p className="to-signup">Don&apos;t have an account?</p>
-            <a href="/signup" className="sign-up">Sign-up</a>
+            <Link to="/signup" className="sign-up">Sign-up</Link>
           </div>
         </div>
         <div className="right-col">
