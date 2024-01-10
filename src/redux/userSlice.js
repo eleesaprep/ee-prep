@@ -7,7 +7,7 @@ import {
   saveUserToLocalStorage,
 } from '../utils/localStorageForUser';
 
-const base_url = 'http://127.0.0.1:3002/';
+const base_url = 'https://mysite-nprl.onrender.com/';
 
 export const userSignup = createAsyncThunk('user/signup', async (userData, { rejectWithValue }) => {
   try {
