@@ -31,9 +31,13 @@ import youtube from '../assets/icons8-youtube-48.png';
 import ig from '../assets/icons8-ig-48.png';
 import email from '../assets/icons8-email-48.png';
 import background from '../assets/engineering-lab.jpg';
+import addQuiz from '../assets/icons8-add-properties-48.png';
+import addQuestion from '../assets/icons8-questions-64.png';
 
 const images = {
   ship,
+  addQuestion,
+  addQuiz,
   background,
   email,
   ig,

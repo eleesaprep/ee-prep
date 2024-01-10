@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateUser } from '../redux/userSlice';
 
 export default function ProfileUpdate() {
-  const { student, loading } = useSelector((store) => store.user);
+  const { student, loading } = useSelector((store) => store.student);
   const [userData, setUserData] = useState({
     user: {
       username: student.username || '',

@@ -63,23 +63,27 @@ const courseSlice = createSlice({
     courses: [],
     loading: false,
     error: null,
+    isDeleted: false,
+  },
+  reducers: {
+    disableAlert: (state) => {
+      state.isDeleted = false;
+    }
   },
   extraReducers(builder) {
-    builder.addCase(createCourse.pending, async (state) => ({
-      ...state,
-      loading: true,
-      error: null,
-    }))
-      .addCase(createCourse.fulfilled, async (state, action) => ({
-        loading: false,
-        error: null,
-        courses: [...state.courses, action.payload],
-      }))
-      .addCase(createCourse.rejected, async (state, action) => ({
-        ...state,
-        loading: false,
-        error: action.payload,
-      }))
+    builder.addCase(createCourse.pending, (state) => {
+      state.loading = true;
+      state.error = null;
+    })
+      .addCase(createCourse.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = false;
+        state.courses.push(action.payload);
+      })
+      .addCase(createCourse.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       .addCase(getCourses.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -93,17 +97,16 @@ const courseSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(deleteCourse.pending, (state) => ({
-        ...state,
-        loading: true,
-        error: null,
-      }))
-      .addCase(deleteCourse.fulfilled, (state, action) => ({
-        ...state,
-        loading: false,
-        error: null,
-        course: state.courses.filter((course) => course.id !== action.payload.id),
-      }))
+      .addCase(deleteCourse.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(deleteCourse.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.isDeleted = true;
+        state.courses = state.courses.filter((course) => course.id !== action.payload.id);
+      })
       .addCase(deleteCourse.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
@@ -111,4 +114,5 @@ const courseSlice = createSlice({
   },
 });
 
+export const { disableAlert } = courseSlice.actions;
 export default courseSlice.reducer;

@@ -32,6 +32,12 @@ li {
   min-height: 100vh;
   color: white;
   z-index: -2;
+  overflow-x: hidden;
+}
+
+.light-mode {
+  overflow-x: hidden;
+  z-index: -2;
 }
 
 .black-txt {
@@ -125,7 +131,9 @@ li {
   color: #0a0a0aad;
 }
 
-.input input {
+.input input,
+.add-quiz-input input,
+.select {
   width: 20em;
   height: 2.5em;
   font-size: 1.2em;
@@ -232,7 +240,23 @@ li {
   z-index: 999;
   transition: 0.5s;
   box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
-  opacity: 1;
+  display: block;
+}
+
+.sign-out-btn,
+.profile-link {
+  display: block;
+  border: none;
+  font-size: 1em;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(1);
+}
+
+.sign-out-btn:hover,
+.profile-link:hover {
+  transform: scale(1.2);
 }
 
 .none {
@@ -241,7 +265,7 @@ li {
   position: absolute;
   top: 100%;
   z-index: 999;
-  opacity: 0;
+  display: none;
 }
 
 /***** HOMEPAGE *****/
@@ -343,6 +367,7 @@ li {
 
 .phone-progress {
   display: block;
+  padding-top: 1em;
 }
 
 .sub-progress {
@@ -358,6 +383,11 @@ li {
   width: 90%;
   margin: auto;
 }
+
+.svg {
+  overflow: visible;
+}
+
 
 /*** ANNOUNCEMENT ***/
 
@@ -525,6 +555,7 @@ li {
 
 .next-courses {
   margin-top: 1em;
+  display: flex;
 }
 
 .next-courses img {
@@ -614,6 +645,10 @@ li {
   scroll-behavior: smooth;
   margin-left: -1em;
   padding: 1em 0;
+}
+
+.course-material-header {
+  margin-left: 1em;
 }
 
 .courses-container::-webkit-scrollbar {
@@ -781,14 +816,14 @@ li {
 
 .time-bar-wrapper {
   width: 100%;
-
+  
   /* overflow: hidden; */
 }
 
 .time-bar {
   width: 100%;
   height: 2px;
-  margin-top: 1em;
+  margin-top: 0;
   position: absolute;
 }
 
@@ -908,6 +943,84 @@ li {
   background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
 }
 
+/***** ADD QUIZ *****/
+.add-quiz-loadingbar {
+  position: absolute;
+  bottom: 0;
+  right: 0%;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+.add-quiz-form,
+.add-course-form,
+.add-question-form,
+.add-material-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.add-quiz-input input,
+.select {
+  background-color: var(--grey-color);
+}
+
+/***** ADMIN STYLES *****/
+.delete-quiz {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+}
+
+.dq-course-name {
+  width: 15em;
+}
+
+.materials-btn {
+  color: white;
+  font-size: 1em;
+  padding: 0.1em;
+  height: 1.8em;
+  background-color: #3e53a0;
+  margin-bottom: 1em;
+  width: 6em;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  font-size: 1em;
+  padding: 0.3em;
+  height: 2em;
+  width: 6em;
+  cursor: pointer;
+}
+
+.delete-qtn-container {
+  display: flex;
+  width: 70%;
+  margin: 2em auto;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+  justify-content: space-between;
+}
+
+.question-del {
+  width: 70%;
+}
+
 
 /********** DESKTOP SCREEN **********/
 @media screen and (min-width: 768px) and (max-width: 1200px) {
@@ -1020,6 +1133,13 @@ li {
     align-items: center;
     justify-content: center;
   }
+
+  /*** ADD QUIZ ***/
+  .form-break {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -1047,6 +1167,7 @@ li {
     height: 97.2vh;
     width: 250px;
     background-color: var(--primary-color);
+    z-index: 999;
   }
 
   .outlet {
@@ -1110,5 +1231,9 @@ li {
     text-align: center;
     margin: 0;
     font-size: 1.3em;
+  }
+
+  .status-img {
+    width: 2em;
   }
 }

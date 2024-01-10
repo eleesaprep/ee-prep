@@ -1,4 +1,4 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ProgressBar from './progressBar';
 import LinearProgress from './linearProgress';
@@ -6,14 +6,21 @@ import images from '../../utils/images';
 import projects from '../../utils/projects';
 import LoadingBar from './loadingBar';
 import Footer from '../footer';
+import { getUserById } from '../../redux/studentSlice';
 
 export default function HomePage() {
-  const { user, student } = useSelector((store) => store.user);
+  const { user } = useSelector((store) => store.user);
+  const { student, loading } = useSelector((store) => store.student);
   const [percentMark, setPercentMark] = useState(0);
   const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (student.progresses) {
+    dispatch(getUserById());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (loading === false && student.progresses) {
       const totalMarks = student.progresses.length * 100;
       let totalScored = 0;
       student.progresses.forEach((progress) => {
@@ -42,9 +49,7 @@ export default function HomePage() {
           <img className="shape-ellipse1" src={images.ellipse1} alt="shape-4" />
           <img className="shape-ellipse2" src={images.ellipse2} alt="shape-5" />
           <h1>
-            Hello
-            { user.full_name}
-            ,
+            Hello { user.full_name},
             <br />
             Welcome 👋
           </h1>
@@ -65,7 +70,7 @@ export default function HomePage() {
                   <p className="grade">{progress.grade}</p>
                 </div>
                 <div className="phone-progress"><LinearProgress percentage={progress.total_marks_obtained} /></div>
-                <div className="desktop-progress"><ProgressBar smaller percentage={progress.total_marks_obtained} /></div>
+                <div className="desktop-progress"><ProgressBar smaller percentage={parseInt(progress.total_marks_obtained, 10)} /></div>
               </div>
             ))}
           </div>

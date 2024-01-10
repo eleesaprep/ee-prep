@@ -76,7 +76,7 @@ const quizSlice = createSlice({
     })
       .addCase(createQuiz.fulfilled, (state, action) => {
         state.quiz_loading = false;
-        state.error = null;
+        state.error = false;
         state.quizzes.push(action.payload);
       })
       .addCase(createQuiz.rejected, (state, action) => {

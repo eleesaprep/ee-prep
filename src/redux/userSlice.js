@@ -29,20 +29,6 @@ export const userSignup = createAsyncThunk('user/signup', async (userData, { rej
   }
 });
 
-export const getUserById = createAsyncThunk('user', async (_, { rejectWithValue }) => {
-  try {
-    const response = await axios.get(`${base_url}/api/v1/users/${getUserFromLocalStorage().id}`, {
-      headers: {
-        Accept: 'application/json',
-        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
-      },
-    });
-    return response.data;
-  } catch (error) {
-    return rejectWithValue(error.response.data);
-  }
-});
-
 export const updateUser = createAsyncThunk('user/update', async (userData, { rejectWithValue }) => {
   try {
     const response = await axios.put(`${base_url}/api/v1/users/${getUserFromLocalStorage().id}`, userData, {
@@ -83,7 +69,6 @@ const userSlice = createSlice({
     jwt: null,
     loading: true,
     error: null,
-    student: [],
   },
   reducers: {
     userSignout: (state) => {
@@ -132,19 +117,6 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userSignup.rejected, (state, action) => {
-        state.error = action.payload;
-        state.loading = false;
-      })
-      .addCase(getUserById.pending, (state) => {
-        state.error = null;
-        state.loading = true;
-      })
-      .addCase(getUserById.fulfilled, (state, action) => {
-        state.error = null;
-        state.loading = false;
-        state.student = action.payload;
-      })
-      .addCase(getUserById.rejected, (state, action) => {
         state.error = action.payload;
         state.loading = false;
       })

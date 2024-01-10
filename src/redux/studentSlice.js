@@ -19,9 +19,15 @@ export const getUserById = createAsyncThunk('user/id', async (_, { rejectWithVal
 const studentSlice = createSlice({
   name: 'student',
   initialState: {
-    loading: false,
+    loading: null,
     error: null,
     student: [],
+  },
+  reducers: {
+    clearStudent : (state) => {
+      state.loading = null;
+      state.student = [];
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(getUserById.pending, (state) => {
@@ -40,4 +46,5 @@ const studentSlice = createSlice({
   },
 });
 
+export const { clearStudent } = studentSlice.actions;
 export default studentSlice.reducer;

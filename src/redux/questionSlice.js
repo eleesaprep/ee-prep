@@ -68,6 +68,13 @@ const questionSlice = createSlice({
     questions: [],
     loading: false,
     error: null,
+    isDeleted: false,
+    recentQuestion: '',
+  },
+  reducers: {
+    disableQuestionAlert: (state) => {
+      state.error = null;
+    }
   },
   extraReducers: (builder) => {
     builder.addCase(createQuestion.pending, (state) => {
@@ -76,8 +83,9 @@ const questionSlice = createSlice({
     })
       .addCase(createQuestion.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
+        state.error = false;
         state.questions.push(action.payload);
+        state.recentQuestion = action.payload;
       })
       .addCase(createQuestion.rejected, (state, action) => {
         state.loading = false;
@@ -102,7 +110,8 @@ const questionSlice = createSlice({
       })
       .addCase(deleteQuestion.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
+        state.error = false;
+        state.isDeleted = true;
         state.questions = state.questions.filter((question) => question.id !== action.payload.id);
       })
       .addCase(deleteQuestion.rejected, (state, action) => {
@@ -112,4 +121,5 @@ const questionSlice = createSlice({
   },
 });
 
+export const { disableQuestionAlert } = questionSlice.actions;
 export default questionSlice.reducer;

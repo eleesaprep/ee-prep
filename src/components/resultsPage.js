@@ -1,13 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import ProgressBar from './homepage/progressBar';
 import images from '../utils/images';
-import { createProgress, getProgressById, updateProgress } from '../redux/progressSlice';
+import { createProgress, updateProgress } from '../redux/progressSlice';
 import { getUserFromLocalStorage } from '../utils/localStorageForUser';
-import { getCourseById } from '../redux/courseSlice';
+
 
 export default function ResultsPage() {
+  window.addEventListener('load', () => {
+    window.location.assign('/home/');
+  });
   const { resultsData } = useSelector((store) => store.results);
   const percentMark = 100 * resultsData.score / resultsData.resultsQuestion.length;
   const dispatch = useDispatch();
@@ -80,9 +83,6 @@ export default function ResultsPage() {
     }
   }, [progresses]);
 
-  window.addEventListener('load', () => {
-    window.location.assign('/');
-  });
 
   return (
     <>

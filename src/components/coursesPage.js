@@ -4,18 +4,20 @@ import images from '../utils/images';
 import { createEnrollment, deleteEnrollment, getEnrollments } from '../redux/enrollmentSlice';
 import { getUserFromLocalStorage } from '../utils/localStorageForUser';
 import Alert from '../utils/alert';
-import { getCourses } from '../redux/courseSlice';
 import LoadingBar from './homepage/loadingBar';
 import Footer from './footer';
+import { deleteCourse } from '../redux/courseSlice';
+import { useNavigate } from 'react-router-dom';
 
 export default function CoursesPage() {
   const dispatch = useDispatch();
-  const { courses, loading } = useSelector((store) => store.courses);
+  const { courses, loading, isDeleted } = useSelector((store) => store.courses);
   const { enrollments, error } = useSelector((store) => store.enrollments);
   const years = [1, 2, 3, 4];
   const sems = [1, 2];
   const containerRef = useRef(null);
   const user = getUserFromLocalStorage();
+  const navigate = useNavigate();
 
   const handleNext = (percentage) => {
     const container = containerRef.current;
@@ -29,7 +31,6 @@ export default function CoursesPage() {
   };
 
   useEffect(() => {
-    dispatch(getCourses());
     dispatch(getEnrollments());
   }, [dispatch]);
 
@@ -50,13 +51,33 @@ export default function CoursesPage() {
     dispatch(createEnrollment(enrollmentData));
   };
 
+  const handleCourseDelete = (courseId) => {
+    dispatch(deleteCourse(courseId));
+  }
+
+  const handleShowMaterials = (courseId) => {
+    navigate('/home/delete_materials', { state: { courseId }});
+  }
+
+  const handleShowCourseMaterials = (courseId) => {
+    navigate('/home/course_materials', {state: { courseId }});
+  }
+
   return (
     <>
       <div className="courses-page">
         {error !== null && error !== false && <Alert message={error} title="Failed" />}
         {error === false && <Alert message="Enrollment created successfully 🎉" title="Success" />}
-        <h1 className="course-activity">Course Activity</h1>
-        <p>Get access to course materials or enroll in any of the courses</p>
+        {user.user_type !== 'admin' ?
+          <h1 className="course-activity">Course Activity</h1> :
+          <>
+          <h1 className="course-activity">Course Management</h1>
+          {isDeleted && <Alert message="Deleted Successfully 😊" title="success" />}
+          </>
+        }
+        {user.user_type !== 'admin' ?
+          <p>Get access to course materials or enroll in any of the courses</p> :
+          <p>Delete either a course or a course material</p>}
         <div className="course-scroll">
           <p>Courses</p>
           <div className="next-courses">
@@ -108,6 +129,9 @@ export default function CoursesPage() {
                           <div key={course.id} className="courses">
                             <p className="course-code">{course.course_code}</p>
                             <p className="course-name">{course.course_name}</p>
+                            {user.user_type !== 'admin' ?
+                            <div>
+                            <button className="materials-btn" type="button" onClick={() => handleShowCourseMaterials(course.id)}>Materials</button>
                             <div
                               onKeyDown={(e) => {
                                 if (e.key === 'Enter' || e.key === 'Space') {
@@ -122,6 +146,12 @@ export default function CoursesPage() {
                               <p>Enroll</p>
                               <img src={images.next} alt="enroll" />
                             </div>
+                            </div> :
+                            <div>
+                              <button type="button" className='materials-btn' onClick={() => handleShowMaterials(course.id)}>Materials</button>
+                              <button type="button" className='delete-btn' onClick={() => handleCourseDelete(course.id)}>Delete</button>
+                            </div>
+                            }
                           </div>
                         ) : ''
                     )) : <div className="course-loading"><LoadingBar /></div>}
@@ -134,6 +164,7 @@ export default function CoursesPage() {
       }
 
         </div>
+        {user.user_type !== 'admin' &&
         <div>
           <p className="enrolled-title">Enrolled Courses</p>
           <div className="enrolled-container">
@@ -162,7 +193,7 @@ export default function CoursesPage() {
           ))
         }
           </div>
-        </div>
+        </div>}
       </div>
       <Footer />
     </>

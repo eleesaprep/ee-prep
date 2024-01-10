@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 // eslint-disable-next-line
 import { PropTypes } from 'prop-types';
 import dashboard from '../../assets/dashboard.png';
@@ -8,11 +8,15 @@ import closeBtn from '../../assets/close.png';
 import { userSignout } from '../../redux/userSlice';
 import signout from '../../assets/sign-out.png';
 import images from '../../utils/images';
+import { clearStudent } from '../../redux/studentSlice';
+import { Link } from 'react-router-dom';
 
 export default function SideBar({
   menuClicked, phone, onChildClick, showMenu,
 }) {
+  const { user } = useSelector((store) => store.user);
   const name = phone ? 'sidebar' : 'desktop-sidebar';
+  const isAdmin = user.user_type === 'admin';
   const dispatch = useDispatch();
   document.addEventListener('scroll', () => {
     onChildClick();
@@ -20,6 +24,7 @@ export default function SideBar({
   const isDarkMode = localStorage.getItem('darkMode') === 'true';
   const handleSignout = () => {
     dispatch(userSignout());
+    dispatch(clearStudent());
   };
 
   return (
@@ -42,16 +47,16 @@ export default function SideBar({
         </div>
         <ul className="side-links">
           <li className="side-link">
-            <img src={dashboard} alt="" className="logo" />
-            <a className="link" href="/home">Dashboard</a>
+            <img src={dashboard} alt="dashboard" className="logo" />
+            <Link className="link" to="/home">Dashboard</Link>
           </li>
           <li className="side-link">
-            <img src={course} alt="" className="logo" />
-            <a className="link" href="/home/courses">Courses</a>
+            <img src={course} alt="courses" className="logo" />
+            <Link className="link" to="/home/courses">Courses</Link>
           </li>
           <li className="side-link">
-            <img src={quiz} alt="" className="logo" />
-            <a className="link" href="/home/quizzes">Quizzes</a>
+            <img src={quiz} alt="quizzes" className="logo" />
+            <Link className="link" to="/home/quizzes">Quizzes</Link>
           </li>
           <div
             onKeyDown={(e) => {
@@ -67,6 +72,26 @@ export default function SideBar({
             <img src={signout} alt="logout" className="logo" />
             <a className="link" href="#signout">Sign Out</a>
           </div>
+          {isAdmin &&
+          <>
+          <li className='side-link'>
+            <img src={images.addQuiz} alt="add-quiz" className='logo' />
+            <Link className='link' to='/home/add_quiz'>Add Quiz</Link>
+          </li>
+          <li className='side-link'>
+            <img src={images.addQuiz} className='logo' alt="add-course" />
+            <Link className='link' to='/home/add_course'>Add Course</Link>
+          </li>
+          <li className='side-link'>
+            <img src={images.addQuiz} className='logo' alt="add-question" />
+            <Link className='link' to='/home/add_question'>Add Question</Link>
+          </li>
+          <li className='side-link'>
+            <img src={images.addQuiz} className='logo' alt="add-material" />
+            <Link className='link' to='/home/add_material'>Add Material</Link>
+          </li>
+          </>
+          }
         </ul>
       </div>
 

@@ -3,10 +3,8 @@ import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { getEnrollments } from '../redux/enrollmentSlice';
 import images from '../utils/images';
-import { getQuizzes } from '../redux/quizSlice';
+import { deleteQuiz, getQuizzes } from '../redux/quizSlice';
 import LoadingBar from './homepage/loadingBar';
-import { getQuestions } from '../redux/questionSlice';
-import Footer from './footer';
 
 export default function QuizPage() {
   const dispatch = useDispatch();
@@ -15,8 +13,9 @@ export default function QuizPage() {
   const { quizzes, quiz_loading } = useSelector((store) => store.quizzes);
   const [courseId, setCourseId] = useState(null);
   const [courseCode, setCourseCode] = useState(null);
+  const { user } = useSelector((store) => store.user);
+  const { courses } = useSelector((store) => store.courses);
   const navigate = useNavigate();
-  const { questions } = useSelector((store) => store.questions);
 
   useEffect(() => {
     dispatch(getEnrollments());
@@ -32,6 +31,34 @@ export default function QuizPage() {
   const handleCloseClicked = () => {
     setQuizExist(false);
   };
+
+  const handleQuizDelete = (courseId, quizId) => {
+    dispatch(deleteQuiz({courseId, quizId}));
+    window.location.reload();
+  }
+
+  const navigateToQuestions = (courseId, quizId) => {
+    navigate('/home/delete_questions', {
+      state: {
+        courseId, quizId
+      },
+    });
+  }
+
+
+  if(user.user_type === 'admin') {
+    return(
+      courses.map((course) => (
+        course.quizzes.length > 0 && course.quizzes.map((quiz) => (
+          <div key={quiz.id} onClick={() => navigateToQuestions(course.id, quiz.id)} className="delete-quiz">
+            <p className="dq-course-name">{course.course_name}</p>
+            <p>{quiz.exam_title}</p>
+            <button type="button" className='delete-btn' onClick={() => handleQuizDelete(course.id, quiz.id)}>Delete</button>
+          </div>
+        ))
+      ))
+    );
+  }
 
   return (
     <>
@@ -86,7 +113,6 @@ export default function QuizPage() {
             )) : <div className="quiz-loading"><LoadingBar /></div>}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

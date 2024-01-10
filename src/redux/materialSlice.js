@@ -7,7 +7,7 @@ export const createMaterial = createAsyncThunk('materials/new', async ({ courseI
   try {
     const response = await axios.post(`${api_base_url}/courses/${courseId}/materials`, materialData, {
       headers: {
-        Authorization: `bearer ${getUserJwtFromLocalStorage}`,
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
       },
     });
     return response.data;
@@ -22,7 +22,11 @@ export const createMaterial = createAsyncThunk('materials/new', async ({ courseI
 
 export const getMaterials = createAsyncThunk('materials', async (courseId, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${api_base_url}/courses/${courseId}/materials`);
+    const response = await axios.get(`${api_base_url}/courses/${courseId}/materials`, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      }
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.statusText);
@@ -31,7 +35,11 @@ export const getMaterials = createAsyncThunk('materials', async (courseId, { rej
 
 export const getMaterialById = createAsyncThunk('materials/id', async ({ courseId, materialId }, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${api_base_url}/courses/${courseId}/materials/${materialId}`);
+    const response = await axios.get(`${api_base_url}/courses/${courseId}/materials/${materialId}`, {
+      headers: {
+        Authorization: `bearer ${getUserJwtFromLocalStorage()}`,
+      }
+    });
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.statusText);
@@ -61,6 +69,11 @@ const materialSlice = createSlice({
     loading: false,
     error: null,
   },
+  reducers: {
+    disableMaterialAlert: (state) => {
+      state.error = null;
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(createMaterial.pending, (state) => {
       state.loading = true;
@@ -68,7 +81,7 @@ const materialSlice = createSlice({
     })
       .addCase(createMaterial.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
+        state.error = false;
         state.materials.push(action.payload);
       })
       .addCase(createMaterial.rejected, (state, action) => {
@@ -104,4 +117,5 @@ const materialSlice = createSlice({
   },
 });
 
+export const { disableMaterialAlert } = materialSlice.actions;
 export default materialSlice.reducer;
