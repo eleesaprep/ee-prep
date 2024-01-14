@@ -70,7 +70,7 @@ export default function SideBar({
             onClick={handleSignout}
           >
             <img src={signout} alt="logout" className="logo" />
-            <a className="link" href="#signout">Sign Out</a>
+            <Link className="link" to="/">Sign Out</Link>
           </div>
           {isAdmin &&
           <>
