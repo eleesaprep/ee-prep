@@ -1,1 +1,1 @@
-export const api_base_url = 'http://127.0.0.1:3002/api/v1';
+export const api_base_url = 'https://mysite-nprl.onrender.com/api/v1';
