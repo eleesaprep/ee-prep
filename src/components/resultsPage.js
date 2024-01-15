@@ -5,6 +5,7 @@ import ProgressBar from './homepage/progressBar';
 import images from '../utils/images';
 import { createProgress, updateProgress } from '../redux/progressSlice';
 import { getUserFromLocalStorage } from '../utils/localStorageForUser';
+import LoadingBar from './homepage/loadingBar';
 
 
 export default function ResultsPage() {
@@ -20,7 +21,7 @@ export default function ResultsPage() {
   const { examTitle } = location.state;
   const { quizId } = location.state;
   const user = getUserFromLocalStorage();
-  const { progresses } = useSelector((store) => store.progresses);
+  const { progresses, loading } = useSelector((store) => store.progresses);
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -81,7 +82,13 @@ export default function ResultsPage() {
         },
       }));
     }
-  }, [progresses]);
+  }, [progresses, courseId, quizId]);
+
+  if(loading) {
+    return(
+      <LoadingBar />
+    );
+  }
 
 
   return (
