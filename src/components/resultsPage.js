@@ -84,7 +84,7 @@ export default function ResultsPage() {
     }
   }, [progresses, courseId, quizId]);
 
-  if(loading === false) {
+  if(loading === true) {
     return(
       <LoadingBar />
     );
