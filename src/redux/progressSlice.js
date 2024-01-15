@@ -138,6 +138,19 @@ const progressSlice = createSlice({
       .addCase(deleteProgress.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+      })
+      .addCase(updateProgress.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateProgress.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = false;
+        state.progresses = action.payload;
+      })
+      .addCase(updateProgress.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   },
 });
