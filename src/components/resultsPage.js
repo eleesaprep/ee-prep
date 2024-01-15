@@ -12,6 +12,7 @@ export default function ResultsPage() {
   window.addEventListener('load', () => {
     window.location.assign('/home/');
   });
+  const { progresses, loading } = useSelector((store) => store.progresses);
   const { resultsData } = useSelector((store) => store.results);
   const percentMark = 100 * resultsData.score / resultsData.resultsQuestion.length;
   const dispatch = useDispatch();
@@ -21,7 +22,6 @@ export default function ResultsPage() {
   const { examTitle } = location.state;
   const { quizId } = location.state;
   const user = getUserFromLocalStorage();
-  const { progresses, loading } = useSelector((store) => store.progresses);
   const initialRender = useRef(true);
 
   useEffect(() => {
@@ -84,7 +84,7 @@ export default function ResultsPage() {
     }
   }, [progresses, courseId, quizId]);
 
-  if(loading) {
+  if(loading === true) {
     return(
       <LoadingBar />
     );
