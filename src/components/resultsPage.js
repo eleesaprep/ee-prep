@@ -12,7 +12,7 @@ export default function ResultsPage() {
   window.addEventListener('load', () => {
     window.location.assign('/home/');
   });
-  const { progresses, loading } = useSelector((store) => store.progresses);
+  const { progresses, error } = useSelector((store) => store.progresses);
   const { resultsData } = useSelector((store) => store.results);
   const percentMark = 100 * resultsData.score / resultsData.resultsQuestion.length;
   const dispatch = useDispatch();
@@ -84,13 +84,17 @@ export default function ResultsPage() {
     }
   }, [progresses, courseId, quizId]);
 
-  if(loading === true) {
+  if(error === true) {
+    return(
+      <p>Error</p>
+    );
+  }
+  if(error === null) {
     return(
       <LoadingBar />
     );
   }
-
-
+  if(error === false) {
   return (
     <>
       <img className="shape-ellipse" src={images.ellipse} alt="shape-1" />
@@ -124,5 +128,5 @@ export default function ResultsPage() {
         </div>
       </div>
     </>
-  );
+  );}
 }
