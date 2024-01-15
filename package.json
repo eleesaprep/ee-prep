@@ -1,6 +1,5 @@
 {
   "name": "ee-prep",
-  "homepage": "https://github.com/Mylo16/ee-prep.git",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
