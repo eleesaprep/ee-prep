@@ -89,12 +89,12 @@ const progressSlice = createSlice({
     })
       .addCase(createProgress.fulfilled, (state, action) => {
         state.loading = false;
-        state.error = null;
+        state.error = false;
         state.progresses = action.payload;
       })
-      .addCase(createProgress.rejected, (state, action) => {
+      .addCase(createProgress.rejected, (state) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = true;
       })
       .addCase(getProgresses.pending, (state) => {
         state.loading = true;
@@ -150,7 +150,7 @@ const progressSlice = createSlice({
       })
       .addCase(updateProgress.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload;
+        state.error = true;
       });
   },
 });
