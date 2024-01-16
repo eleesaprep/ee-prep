@@ -27,10 +27,6 @@ export default function SideBar({
     dispatch(clearStudent());
   };
 
-  const handleNavigation = () => {
-    dispatch(getUserById());
-  }
-
   return (
     <>
       <div className={menuClicked ? `${name}` : 'no-sidebar'}>
@@ -52,7 +48,7 @@ export default function SideBar({
         <ul className="side-links">
           <li className="side-link">
             <img src={dashboard} alt="dashboard" className="logo" />
-            <Link onClick={() => handleNavigation()} className="link" to="/home">Dashboard</Link>
+            <a className="link" href="https://quiz-app-frontend-puw1.onrender.com/#/home">Dashboard</a>
           </li>
           <li className="side-link">
             <img src={course} alt="courses" className="logo" />
