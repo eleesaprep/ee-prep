@@ -25,12 +25,11 @@ export default function ResultsPage() {
   const initialRender = useRef(true);
 
   useEffect(() => {
-    console.log("Hello");
-    if (initialRender.current) {
-      initialRender.current = false;
-      return;
-    }
-    console.log("bypass");
+    // if (initialRender.current) {
+    //   initialRender.current = false;
+    //   console.log("bypass");
+    //   return;
+    // }
     let grade = '';
     const score = (resultsData.score / resultsData.resultsQuestion.length) * 100;
     if (score < 40) {
