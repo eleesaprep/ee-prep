@@ -25,6 +25,7 @@ export default function ResultsPage() {
   const initialRender = useRef(true);
 
   useEffect(() => {
+    console.log("Hello");
     if (initialRender.current) {
       initialRender.current = false;
       return;

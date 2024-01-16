@@ -151,7 +151,7 @@ const progressSlice = createSlice({
         state.loading = false;
         state.error = false;
         state.progresses = action.payload;
-        console.log("created")
+        console.log("created");
       })
       .addCase(updateProgress.rejected, (state, action) => {
         state.loading = false;
