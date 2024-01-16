@@ -8,7 +8,7 @@ import closeBtn from '../../assets/close.png';
 import { userSignout } from '../../redux/userSlice';
 import signout from '../../assets/sign-out.png';
 import images from '../../utils/images';
-import { clearStudent } from '../../redux/studentSlice';
+import { clearStudent, getUserById } from '../../redux/studentSlice';
 import { Link } from 'react-router-dom';
 
 export default function SideBar({
@@ -26,6 +26,10 @@ export default function SideBar({
     dispatch(userSignout());
     dispatch(clearStudent());
   };
+
+  const handleNavigation = () => {
+    dispatch(getUserById());
+  }
 
   return (
     <>
@@ -48,7 +52,7 @@ export default function SideBar({
         <ul className="side-links">
           <li className="side-link">
             <img src={dashboard} alt="dashboard" className="logo" />
-            <Link className="link" to="/home">Dashboard</Link>
+            <Link onClick={() => handleNavigation()} className="link" to="/home">Dashboard</Link>
           </li>
           <li className="side-link">
             <img src={course} alt="courses" className="logo" />
