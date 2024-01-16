@@ -174,7 +174,7 @@ export default function QuestionsPage() {
     });
   }
 
-  if (options.length === 0) {
+  if (options.length === 0 && showAnim === false) {
     return (
       <>
         <div className="quiz-loading"><LoadingBar /></div>
