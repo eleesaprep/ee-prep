@@ -86,15 +86,18 @@ const progressSlice = createSlice({
     builder.addCase(createProgress.pending, (state) => {
       state.loading = true;
       state.error = null;
+      console.log("pending");
     })
       .addCase(createProgress.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
         state.progresses = action.payload;
+        console.log("created")
       })
       .addCase(createProgress.rejected, (state) => {
         state.loading = false;
         state.error = true;
+        console.log("error");
       })
       .addCase(getProgresses.pending, (state) => {
         state.loading = true;
@@ -142,15 +145,18 @@ const progressSlice = createSlice({
       .addCase(updateProgress.pending, (state) => {
         state.loading = true;
         state.error = null;
+        console.log("pending")
       })
       .addCase(updateProgress.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
         state.progresses = action.payload;
+        console.log("created")
       })
       .addCase(updateProgress.rejected, (state, action) => {
         state.loading = false;
         state.error = true;
+        console.log(error);
       });
   },
 });
