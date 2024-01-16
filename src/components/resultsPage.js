@@ -30,7 +30,7 @@ export default function ResultsPage() {
       initialRender.current = false;
       return;
     }
-
+    console.log("bypass");
     let grade = '';
     const score = (resultsData.score / resultsData.resultsQuestion.length) * 100;
     if (score < 40) {
@@ -83,7 +83,7 @@ export default function ResultsPage() {
         },
       }));
     }
-  }, [progresses, courseId, quizId]);
+  }, [progresses]);
 
   if(error === true) {
     return(
