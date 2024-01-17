@@ -8,7 +8,7 @@ import { resultsDetails } from '../redux/resultsSlice';
 import { getProgressById } from '../redux/progressSlice';
 
 export default function QuestionsPage() {
-  const { questions } = useSelector((store) => store.questions);
+  const { questions, loading } = useSelector((store) => store.questions);
   const { state } = useLocation();
   const dispatch = useDispatch();
   const [options, setOptions] = useState([]);
@@ -174,7 +174,7 @@ export default function QuestionsPage() {
     });
   }
 
-  if (options.length === 0 && showAnim === false) {
+  if (options.length === 0) {
     return (
       <>
         <div className="quiz-loading"><LoadingBar /></div>
@@ -183,6 +183,7 @@ export default function QuestionsPage() {
   }
 
   return (
+    loading === false &&
     <>
       <CSSTransition onExit={() => handleTimeout()} onEntered={() => setShowAnim(false)} in={showAnim} timeout={ques[quesCount].time} classNames={ques[quesCount].time === 60000 ? 'example1' : 'example'} unmountOnExit>
         <div className="time-bar-wrapper"><div className={isDarkMode ? 'time-bar red-bg' : 'time-bar blue-bg'} /></div>
