@@ -62,12 +62,14 @@ export default function QuestionsPage() {
     if (ques.length > 0) {
       const newOptions = generateOptionsAndShuffle(ques[0]);
       setOptions(newOptions);
-      if (options.length !== 0) {
-        setShowAnim(true);
-        console.log("hello");
-      }
     }
-  }, [questions, options]);
+  }, [questions]);
+
+  useEffect(() => {
+    if (options.length !== 0) {
+      setShowAnim(true);
+    }
+  }, [options]);
 
   useEffect(() => {
     if (quesCount === ques.length - 1) {
