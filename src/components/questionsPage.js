@@ -64,9 +64,10 @@ export default function QuestionsPage() {
       setOptions(newOptions);
       if (options.length !== 0) {
         setShowAnim(true);
+        console.log("hello");
       }
     }
-  }, [questions]);
+  }, [questions, options]);
 
   useEffect(() => {
     if (quesCount === ques.length - 1) {
@@ -183,7 +184,6 @@ export default function QuestionsPage() {
   }
 
   return (
-    loading === false &&
     <>
       <CSSTransition onExit={() => handleTimeout()} onEntered={() => setShowAnim(false)} in={showAnim} timeout={ques[quesCount].time} classNames={ques[quesCount].time === 60000 ? 'example1' : 'example'} unmountOnExit>
         <div className="time-bar-wrapper"><div className={isDarkMode ? 'time-bar red-bg' : 'time-bar blue-bg'} /></div>
