@@ -25,7 +25,7 @@ export const createReset = createAsyncThunk('/password_reset', async (userEmail,
 
 export const updatePassword = createAsyncThunk('/update_password', async ({ token, password }, { rejectWithValue }) => {
   try {
-    const response = await axios.put(`${base_url}/password_reset`, password, {
+    const response = await axios.put(`${base_url}/password_reset`, {
       headers: {
         Accept: 'application/json',
       },
