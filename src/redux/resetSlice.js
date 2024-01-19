@@ -5,7 +5,7 @@ const base_url = 'https://mysite-nprl.onrender.com';
 
 export const createReset = createAsyncThunk('/password_reset', async (userEmail, { rejectWithValue }) => {
   try {
-    const response = await axios.post(`${base_url}/password_reset`, {
+    const response = await axios.post(`${base_url}/password_reset`, userEmail, {
       headers: {
         Accept: 'application/json',
       },
@@ -25,7 +25,7 @@ export const createReset = createAsyncThunk('/password_reset', async (userEmail,
 
 export const updatePassword = createAsyncThunk('/update_password', async ({ token, password }, { rejectWithValue }) => {
   try {
-    const response = await axios.put(`${base_url}/password_reset`, {
+    const response = await axios.put(`${base_url}/password_reset`, password, {
       headers: {
         Accept: 'application/json',
       },
