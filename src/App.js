@@ -25,6 +25,8 @@ import MaterialsPage from './components/admin pages/materialsPage';
 import AddMaterial from './components/admin pages/addMaterial';
 import { disableMaterialAlert } from './redux/materialSlice';
 import CourseMaterials from './components/courseMaterials';
+import PasswordReset from './components/passwordReset';
+import ChangePassword from './components/changePassword';
 
 function App() {
   const dispatch = useDispatch();
@@ -156,6 +158,8 @@ function App() {
         <Route element={<ProtectedRoute userAllowed={!user} redirectTo="/home" />}>
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/password_reset" element={<PasswordReset />} />
+          <Route path="/change_password" element={<ChangePassword />} />
         </Route>
         <Route element={<ProtectedRoute userAllowed={!!user} redirectTo="/" />}>
           <Route path="/home" element={<Navbar />}>

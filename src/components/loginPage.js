@@ -56,6 +56,7 @@ export default function LoginPage() {
             <p className="to-signup">Don&apos;t have an account?</p>
             <Link to="/signup" className="sign-up">Sign-up</Link>
           </div>
+          <Link className="forgot-password" to="/password_reset">Forgot Password?</Link>
         </div>
         <div className="right-col">
           <div className="right-col-content">

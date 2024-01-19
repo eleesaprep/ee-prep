@@ -10,6 +10,7 @@ import instructorReducer from './instructorSlice';
 import studentReducer from './studentSlice';
 import enrollmentReducer from './enrollmentSlice';
 import resultsReducer from './resultsSlice';
+import resetReducer from './resetSlice';
 
 const store = configureStore({
   reducer: {
@@ -24,6 +25,7 @@ const store = configureStore({
     student: studentReducer,
     enrollments: enrollmentReducer,
     results: resultsReducer,
+    reset: resetReducer,
   },
 });
 
