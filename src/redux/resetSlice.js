@@ -49,7 +49,7 @@ const resetSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createReset.fulfilled, (state, action) => {
+    builder.addCase(createReset.fulfilled, (state) => {
       state.loading = false;
       state.error = false;
     })
