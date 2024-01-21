@@ -23,17 +23,19 @@ export const createReset = createAsyncThunk('/password_reset', async (userEmail,
   }
 });
 
-export const updatePassword = createAsyncThunk('/update_password', async ({ token, password }, { rejectWithValue }) => {
+export const updatePassword = createAsyncThunk('user/update_password', async ({ token, password }, { rejectWithValue }) => {
   try {
-    const response = await axios.put(`${base_url}/password_reset`, {
+    const response = await axios.put(`${base_url}/password_reset`, { token, password }, {
       headers: {
         Accept: 'application/json',
+        "Content-Type": 'application/json',
       },
       params: {
         token,
-        password,
-      },
+        password
+      }
     });
+
     return response.data;
   } catch (error) {
     return rejectWithValue(error.response.data);
@@ -49,9 +51,11 @@ const resetSlice = createSlice({
     error: null,
   },
   extraReducers: (builder) => {
-    builder.addCase(createReset.fulfilled, (state) => {
+    builder.addCase(createReset.fulfilled, (state, action) => {
       state.loading = false;
       state.error = false;
+      state.token = action.payload;
+
     })
       .addCase(createReset.pending, (state) => {
         state.error = null;

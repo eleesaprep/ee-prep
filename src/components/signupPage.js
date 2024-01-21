@@ -1,18 +1,53 @@
-import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { userSignup } from '../redux/userSlice';
 import images from '../utils/images';
+import LoadingBar from './homepage/loadingBar';
 
 export default function SignupPage() {
   const [userData, setUserData] = useState({ user: {} });
   const dispatch = useDispatch();
+  const [hasUpperCase, setHasUpperCase] = useState(false);
+  const [hasLowerCase, setHasLowerCase] = useState(false);
+  const [hasDigit, setHasDigit] = useState(false);
+  const [hasSpecialChar, setHasSpecialChar] = useState(false);
+  const [isLengthValid, setIsLengthValid] = useState(false);
+  const [isPasswordValid, setIsPasswordValid] = useState(false);
+  const [password, setPassword] = useState('');
+  const { loading, error } = useSelector((store) => store.user);
+
+  useEffect(() => {
+    validatePassword(password);
+  }, [password, hasUpperCase, hasLowerCase, hasDigit, hasSpecialChar, isLengthValid]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(userSignup(userData));
+    if(isPasswordValid) {
+      dispatch(userSignup(userData));
+    }
+    else {
+      alert("Invalid password input; all requirements must pass");
+    }
   };
+
+  const validatePassword = (value) => {
+    setHasUpperCase(/[A-Z]/.test(value));
+    setHasLowerCase(/[a-z]/.test(value));
+    setHasDigit(/\d/.test(value));
+    setHasSpecialChar(/[!@#$%^&*()_+{}\[\]:;<>,.?~\\/-]/.test(value));
+    setIsLengthValid(value.length >= 8);
+  
+    const isValid =
+    hasUpperCase && hasLowerCase && hasDigit && hasSpecialChar && isLengthValid;
+  
+    setIsPasswordValid(isValid);
+  }
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
+    if(name === "password") {
+      setPassword(value);
+    }
     setUserData({
       user: {
         ...userData.user,
@@ -20,12 +55,15 @@ export default function SignupPage() {
       },
     });
   };
+
   return (
     <div className="session-page">
       <div className="session-container">
         <div className="signup-body">
           <h1>EE-PREP</h1>
           <p className="inspire-text">Nourish your inner skills</p>
+          { error === true && <p className="invalid-login">Username already exist ❗❗</p>}
+          <div className={loading ? 'login-loading' : 'no-loading'}><LoadingBar /></div>
           <form onSubmit={handleSubmit} className="login-form">
             <div className="input">
               <label>Username</label>
@@ -40,16 +78,39 @@ export default function SignupPage() {
             </div>
 
             <div className="input">
+              <label>Full Name</label>
+              <br />
+              <input name="full_name" onChange={handleInputChange} type="text" required className="input" />
+            </div>
+
+            <div className="input">
               <label>Password</label>
               <br />
               <input name="password" onChange={handleInputChange} type="password" required className="input" />
             </div>
 
-            <div className="input">
-              <label>Full Name</label>
-              <br />
-              <input name="full_name" onChange={handleInputChange} type="text" required className="input" />
-            </div>
+            <ul>
+              <li className='password-check'>
+                <p>Password must include an upper case</p>
+                <img src={hasUpperCase ? images.correct : images.wrong} alt="password-check"/>
+              </li>
+              <li className='password-check'>
+                <p>Password must include a lower case</p>
+                <img src={hasLowerCase ? images.correct : images.wrong} alt="password-check"/>
+              </li>
+              <li className='password-check'>
+                <p>Password must include a digit</p>
+                <img src={hasDigit ? images.correct : images.wrong} alt="password-check"/>
+              </li>
+              <li className='password-check'>
+                <p>Password must include a special character</p>
+                <img src={hasSpecialChar ? images.correct : images.wrong} alt="password-check"/>
+              </li>
+              <li className='password-check'>
+                <p>Password must be at least 8 characters long</p>
+                <img src={isLengthValid ? images.correct : images.wrong} alt="password-check"/>
+              </li>
+            </ul>
 
             <input type="submit" className="submit" value="Sign Up" />
           </form>

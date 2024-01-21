@@ -23,10 +23,16 @@ export default function PasswordReset() {
     setEmail(input);
   }
   return(
-    <form onSubmit={handleFormSubmit}>
-      <label>Enter Email</label>
-      <input name="email" onChange={handleInputChange} type="email" required />
-      <input type="submit" value="Send"/>
-    </form>
+    <div>
+      <h1 className="ee-prep">EE-PREP</h1>
+      <p className="inspire-text">Nourish your inner skills</p>
+      <p className="inspire-text">Enter email used for creating your account😊</p>
+      <form onSubmit={handleFormSubmit}>
+        <label>Enter Email</label><br/>
+        <input className="email-input" name="email" onChange={handleInputChange} type="email" required />
+        <input className="email-submit" type="submit" value="Send"/>
+        </form>
+    </div>
+    
   );
 }

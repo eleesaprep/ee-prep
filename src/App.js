@@ -159,7 +159,7 @@ function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/password_reset" element={<PasswordReset />} />
-          <Route path="/change_password" element={<ChangePassword />} />
+          <Route path="/change_password/:token" element={<ChangePassword />} />
         </Route>
         <Route element={<ProtectedRoute userAllowed={!!user} redirectTo="/" />}>
           <Route path="/home" element={<Navbar />}>

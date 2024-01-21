@@ -98,7 +98,8 @@ li {
 
 /*** LOGIN/SIGNUP ***/
 .login-body,
-.signup-body {
+.signup-body,
+.change-password {
   background: rgb(143,175,222);
   background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
   height: 100vh;
@@ -109,12 +110,27 @@ li {
   align-items: center;
 }
 
+.password-check {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-check p {
+  font-size: 0.9em;
+}
+
+.password-check img {
+  width: 1.5em;
+}
+
 .right-col {
   display: none;
 }
 
 .login-body h1,
-.signup-body h1 {
+.signup-body h1,
+.change-password h1 {
   color: green;
 }
 
@@ -151,7 +167,6 @@ li {
   margin-top: 1em;
   border: none;
   height: 2.5em;
-  margin-bottom: 2em;
 }
 
 .invalid-login {
@@ -973,6 +988,16 @@ li {
   background-color: var(--grey-color);
 }
 
+/***** PASSWORD RESET *****/
+.ee-prep {
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.inspire-text {
+  text-align: center;
+}
+
 /***** ADMIN STYLES *****/
 .delete-quiz {
   display: flex;
@@ -1088,7 +1113,7 @@ li {
   .session-container {
     display: flex;
     width: 70%;
-    height: 65vh;
+    height: 90vh;
     position: absolute;
   }
 
@@ -1100,6 +1125,10 @@ li {
   .signup-body {
     width: 25em;
     height: 65vh;
+  }
+
+  .submit {
+    margin-bottom: 0;
   }
 
   .right-col {
