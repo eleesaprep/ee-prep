@@ -48,6 +48,10 @@ li {
   color: white;
 }
 
+.grey-bg {
+  background-color: var(--grey-1);
+}
+
 .black-bg {
   background-color: rgb(41, 39, 39);
 }
@@ -396,7 +400,10 @@ li {
 
 .linear-progresses {
   width: 90%;
-  margin: auto;
+  margin: 1em auto;
+  box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.61);
+  border-radius: 10px;
+  padding: 1em;
 }
 
 .svg {
@@ -463,7 +470,6 @@ li {
   width: 100%;
   position: relative;
   padding: 0.3em;
-  background-color: var(--grey-1);
 }
 
 .project-img {
@@ -495,6 +501,25 @@ li {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+}
+
+.project-manage,
+.announcement-manage {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.project-manage button,
+.announcement-manage button {
+  background-color: red;
+  color: white;
+  padding: 0.2em 0.5em;
 }
 
 /*** LOADING BAR ***/
@@ -806,6 +831,21 @@ li {
   padding: 1em;
 }
 
+.ques-img {
+  width: 100%;
+  /* height: 200px; */
+}
+
+.radio-container {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.radio-container img {
+  width: 100%;
+}
+
 .next-button {
   background-color: green;
   display: flex;
@@ -893,11 +933,6 @@ li {
   border-radius: 1em;
 }
 
-.ques-img {
-  width: 300px;
-  height: 200px;
-}
-
 .mark {
   display: flex;
   justify-content: flex-end;
@@ -958,6 +993,10 @@ li {
   background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
 }
 
+.user-update-form input {
+  width: 100%;
+}
+
 /***** ADD QUIZ *****/
 .add-quiz-loadingbar {
   position: absolute;
@@ -976,11 +1015,18 @@ li {
 .add-quiz-form,
 .add-course-form,
 .add-question-form,
-.add-material-form {
+.add-project-form,
+.add-material-form,
+.announcement-form {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.show-announcements,
+.show-projects {
+  margin-top: 2em;
 }
 
 .add-quiz-input input,
@@ -1052,6 +1098,11 @@ li {
   .courses-page {
     width: 100%;
     overflow: hidden;
+  }
+
+  .ques-img {
+    width: 70%;
+    /* height: 200px; */
   }
 
   .year-courses {
@@ -1169,6 +1220,11 @@ li {
     justify-content: space-between;
     width: 80%;
   }
+
+  .ques-img {
+    width: 40%;
+    /* height: 200px; */
+  }
 }
 
 @media screen and (min-width: 768px) {
@@ -1265,4 +1321,6 @@ li {
   .status-img {
     width: 2em;
   }
+
+
 }

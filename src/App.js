@@ -27,6 +27,8 @@ import { disableMaterialAlert } from './redux/materialSlice';
 import CourseMaterials from './components/courseMaterials';
 import PasswordReset from './components/passwordReset';
 import ChangePassword from './components/changePassword';
+import Announcement from './components/admin pages/announcements';
+import Projects from './components/admin pages/projects';
 
 function App() {
   const dispatch = useDispatch();
@@ -176,6 +178,8 @@ function App() {
             <Route path="/home/delete_materials" element={<MaterialsPage />} />
             <Route path="/home/add_material" element={<AddMaterial />} />
             <Route path="/home/course_materials" element={<CourseMaterials />} />
+            <Route path="/home/announcements" element={<Announcement />} />
+            <Route path="/home/projects" element={<Projects />} />
           </Route>
         </Route>
       </Routes>

@@ -11,6 +11,8 @@ import studentReducer from './studentSlice';
 import enrollmentReducer from './enrollmentSlice';
 import resultsReducer from './resultsSlice';
 import resetReducer from './resetSlice';
+import announcementReducer from './announcementSlice';
+import projectReducer from './projectSlice';
 
 const store = configureStore({
   reducer: {
@@ -26,6 +28,8 @@ const store = configureStore({
     enrollments: enrollmentReducer,
     results: resultsReducer,
     reset: resetReducer,
+    announcements: announcementReducer,
+    projects: projectReducer,
   },
 });
 

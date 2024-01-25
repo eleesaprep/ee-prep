@@ -3,20 +3,25 @@ import { useEffect, useState } from 'react';
 import ProgressBar from './progressBar';
 import LinearProgress from './linearProgress';
 import images from '../../utils/images';
-import projects from '../../utils/projects';
 import LoadingBar from './loadingBar';
 import Footer from '../footer';
 import { getUserById } from '../../redux/studentSlice';
+import { getProjects } from '../../redux/projectSlice';
+import { getAnnouncements } from '../../redux/announcementSlice';
 
 export default function HomePage() {
   const { user } = useSelector((store) => store.user);
   const { student, loading } = useSelector((store) => store.student);
+  const { projects, getProject } = useSelector((store) => store.projects);
   const [percentMark, setPercentMark] = useState(0);
   const isDarkMode = localStorage.getItem('darkMode') === 'true';
+  const { announcements } = useSelector((store) => store.announcements);
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(getUserById());
+    dispatch(getProjects());
+    dispatch(getAnnouncements());
   }, [dispatch]);
 
   useEffect(() => {
@@ -53,13 +58,15 @@ export default function HomePage() {
             <br />
             Welcome 👋
           </h1>
+          {user.user_type !== 'admin' &&
+          <>
           <p className="progress-text black-txt">Let&apos;s improve your progress!</p>
           <div className="progress-bar">
             <ProgressBar percentage={percentMark} />
           </div>
-          <div className="progresses">
+          <div className={isDarkMode ? "progresses blue-bg" : "progresses white-bg"}>
             { student.progresses.map((progress) => (
-              <div key={progress.id} className={isDarkMode ? 'linear-progresses blue-bg' : 'linear-progresses white-bg'}>
+              <div key={progress.id} className='linear-progresses'>
                 <div className="sub-progress">
                   <p className="progress-name">
                     {progress.course_code}
@@ -74,30 +81,36 @@ export default function HomePage() {
               </div>
             ))}
           </div>
+          </>
+          }
+          
           <div className="announcement-container">
             <h2 className="general-announcement">General Announcement📢</h2>
-            <p className="announcement-title">❗ Students Notice 🔔</p>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nemo blanditiis alias,
-              assumenda velit ad eos fugiat provident, eaque, delectus consequatur magnam
-              tempore! Aut quaerat debitis quibusdam maiores alias tempore vel rerum? Iste
-              non atque tenetur, assumenda, quam maxime sunt labore sequi at deserunt commodi
-              facilis, optio laborum libero perferendis unde.
-            </p>
+            {announcements.length > 0 ?
+            announcements.map((announcement) => (
+              <div>
+                <p className="announcement-title">❗ {announcement.title} 🔔</p>
+                <p>{announcement.content}</p>
+              </div> 
+            ))
+            :
+            <p>There is no Announcement for the moment. Any new announcement will appear here👌</p>
+            }
+            
           </div>
           <div className="projects">
             <h2 className={isDarkMode ? 'eleesa-projects white-txt' : 'eleesa-projects black-txt'}>ELEESA PROJECTS📽</h2>
             <div className="projects-container">
-              {
+              {projects.length > 0 ?
               projects.map((project) => (
-                <div key={project.title} className="project-container">
-                  <img className="project-img" src={project.img} alt="project-pic" />
+                <div key={project.title} className={isDarkMode ? "project-container blue-bg" : "project-container grey-bg"}>
+                  <img className="project-img" src={project.img_url} alt="project-pic" />
                   <div className="view-project">
                     <button type="button" className="see-project">See Project</button>
                     <div className="project-detail">
                       <p className="project-title">{project.title}</p>
                       <div>
-                        {Array.from({ length: project.rating },
+                        {Array.from({ length: project.project_rating },
                           (_, index) => index + 1).map((star) => (
                             <img key={star} src={images.star} alt="rating" />
                         ))}
@@ -106,6 +119,8 @@ export default function HomePage() {
                   </div>
                 </div>
               ))
+              :
+              <p>There are no Projects added yet ❗❗</p>
             }
             </div>
 

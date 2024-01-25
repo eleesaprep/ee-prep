@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <div className="footer-container">
       <div className="footer">
-        <p className="about-us">Our Websites🔆</p>
+        <p className="about-us">Our Websites 🌏</p>
         <div className="useful-links">
           <Link className="web-link" to="https://www.facebook.com/eleesaknust/"><img src={images.facebook} alt="facebook" /></Link>
           <Link className="web-link" to="https://twitter.com/knust_eleesa"><img src={images.twitter} alt="twitter" /></Link>

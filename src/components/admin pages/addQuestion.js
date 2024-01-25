@@ -203,7 +203,8 @@ export default function AddQuestion() {
           <br />
           <select name="question_type" onChange={handleInputChange} type="text" required className="select">
             <option>Select...</option>
-            <option value="Multiple Choice">Multiple Choice</option>
+            <option value="image">Image</option>
+            <option value="text">Text</option>
           </select>
         </div>
 

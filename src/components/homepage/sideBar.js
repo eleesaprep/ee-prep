@@ -90,6 +90,14 @@ export default function SideBar({
             <img src={images.addQuiz} className='logo' alt="add-material" />
             <Link className='link' to='/home/add_material'>Add Material</Link>
           </li>
+          <li className='side-link'>
+            <img src={images.addQuiz} className='logo' alt="add-material" />
+            <Link className='link' to='/home/announcements'>Notices</Link>
+          </li>
+          <li className='side-link'>
+            <img src={images.addQuiz} className='logo' alt="add-material" />
+            <Link className='link' to='/home/projects'>Projects</Link>
+          </li>
           </>
           }
         </ul>
