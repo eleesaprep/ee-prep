@@ -134,7 +134,7 @@ export default function QuestionsPage() {
         question: ques[quesCount].question_text,
         answer: ques[quesCount].correct_answer,
         correct: true,
-        quesImage: ques[quesCount].img ? ques[quesCount].img : '',
+        questionType: ques[quesCount].question_type,
       });
       newCorrect.push(true);
       setResultsQuestion(newResultsQuestion);
@@ -147,7 +147,7 @@ export default function QuestionsPage() {
         question: ques[quesCount].question_text,
         answer: ques[quesCount].correct_answer,
         correct: false,
-        quesImage: ques[quesCount].img ? ques[quesCount].img : '',
+        questionType: ques[quesCount].question_type,
       });
       newCorrect.push(false);
       setResultsQuestion(newResultsQuestion);
@@ -199,19 +199,19 @@ export default function QuestionsPage() {
         <img className="ques-img" src={ques[quesCount].question_text} alt="question diagram" />
         }
         <div className='options'>
-          <div className='radio-container'>
+          <div className={ques[quesCount].question_type === "text" ? 'radio-container1' : 'radio-container'}>
             <input checked={checked.check1} onChange={HandleChange} type="radio" id="1" value={options[0]} />
             <label htmlFor="1">{ques[quesCount].question_type === "text" ? options[0] : <img className='option-img' src={options[0]} alt='option'/>}</label>
           </div>
-          <div className='radio-container'>
+          <div className={ques[quesCount].question_type === "text" ? 'radio-container1' : 'radio-container'}>
             <input checked={checked.check2} onChange={HandleChange} type="radio" id="2" value={options[1]} />
             <label htmlFor="2">{ques[quesCount].question_type === "text" ? options[1] : <img className='option-img' src={options[1]} alt='option'/>}</label>
           </div>
-          <div className='radio-container'>
+          <div className={ques[quesCount].question_type === "text" ? 'radio-container1' : 'radio-container'}>
             <input checked={checked.check3} onChange={HandleChange} type="radio" id="3" value={options[2]} />
             <label htmlFor="3">{ques[quesCount].question_type === "text" ? options[2] : <img className='option-img' src={options[2]} alt='option'/>}</label>
           </div>
-          <div className='radio-container'>
+          <div className={ques[quesCount].question_type === "text" ? 'radio-container1' : 'radio-container'}>
             <input checked={checked.check4} onChange={HandleChange} type="radio" id="4" value={options[3]} />
             <label htmlFor="4">{ques[quesCount].question_type === "text" ? options[3] : <img className='option-img' src={options[3]} alt='option'/>}</label>
           </div>

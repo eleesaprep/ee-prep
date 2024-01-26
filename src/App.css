@@ -842,6 +842,12 @@ li {
   margin-bottom: 1em;
 }
 
+.radio-container2 {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.2em;
+}
+
 .radio-container img {
   width: 100%;
 }

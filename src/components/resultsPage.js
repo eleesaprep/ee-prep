@@ -25,11 +25,7 @@ export default function ResultsPage() {
   const initialRender = useRef(true);
 
   useEffect(() => {
-    // if (initialRender.current) {
-    //   initialRender.current = false;
-    //   console.log("bypass");
-    //   return;
-    // }
+
     let grade = '';
     const score = (resultsData.score / resultsData.resultsQuestion.length) * 100;
     if (score < 40) {
@@ -116,12 +112,23 @@ export default function ResultsPage() {
             resultsData.resultsQuestion.map((question) => (
               <div className="revision-question" key={question.question}>
                 <div className="mark"><img src={question.correct ? images.correct : images.wrong} alt="mark" /></div>
-                <p>{question.question}</p>
-                {question.quesImage === '' ? <p /> : <img className="ques-img" src={question.quesImage} alt="question image" />}
-                <p className="correct-answer">
-                  Correct Answer:
-                  {question.answer}
-                </p>
+                {question.questionType === 'image' ?
+                  <div>
+                    <img className='ques-img' src={question.question} alt='question-img'/>
+                    <div>
+                      <p>Correct Answer:</p>
+                      <img className='option-img' src={question.answer} alt='anwer-img'/>
+                    </div>
+                  </div>
+                  :
+                  <div>
+                    <p>{question.question}</p>
+                    <p className="correct-answer">
+                      Correct Answer:
+                      {question.answer}
+                    </p>
+                  </div>
+                }
               </div>
             ))
           }
