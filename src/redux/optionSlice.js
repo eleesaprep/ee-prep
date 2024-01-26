@@ -70,6 +70,11 @@ const optionSlice = createSlice({
     error: null,
     optionCreated: false,
   },
+  reducers: {
+    changeOptionCreated: (state) => {
+      state.optionCreated = false;
+    },
+  },
   extraReducers: (builder) => {
     builder.addCase(createOption.pending, (state) => {
       state.optionLoading = true;
@@ -115,4 +120,5 @@ const optionSlice = createSlice({
   },
 });
 
+export const { changeOptionCreated } = optionSlice.actions;
 export default optionSlice.reducer;

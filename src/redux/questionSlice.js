@@ -70,26 +70,33 @@ const questionSlice = createSlice({
     error: null,
     isDeleted: false,
     recentQuestion: '',
+    successful: null,
   },
   reducers: {
     disableQuestionAlert: (state) => {
+      state.successful = null;
+    },
+    defaultError: (state) => {
       state.error = null;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(createQuestion.pending, (state) => {
       state.loading = true;
       state.error = null;
+      state.successful = null;
     })
       .addCase(createQuestion.fulfilled, (state, action) => {
         state.loading = false;
         state.error = false;
+        state.successful = true;
         state.questions.push(action.payload);
         state.recentQuestion = action.payload;
       })
       .addCase(createQuestion.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
+        state.successful = false;
       })
       .addCase(getQuestions.pending, (state) => {
         state.loading = true;
@@ -121,5 +128,5 @@ const questionSlice = createSlice({
   },
 });
 
-export const { disableQuestionAlert } = questionSlice.actions;
+export const { disableQuestionAlert, defaultError } = questionSlice.actions;
 export default questionSlice.reducer;

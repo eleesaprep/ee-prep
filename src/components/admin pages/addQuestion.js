@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCourses } from '../../redux/courseSlice';
 import Alert from "../../utils/alert";
 import LoadingBar from "../homepage/loadingBar";
-import { createQuestion } from "../../redux/questionSlice";
-import { createOption } from "../../redux/optionSlice";
+import { createQuestion, defaultError, disableQuestionAlert } from "../../redux/questionSlice";
+import { changeOptionCreated, createOption } from "../../redux/optionSlice";
 
 export default function AddQuestion() {
   const dispatch = useDispatch();
   const { courses } = useSelector((store) => store.courses);
-  const { error, loading, recentQuestion } = useSelector((store) => store.questions);
+  const { error, loading, successful, recentQuestion } = useSelector((store) => store.questions);
   const { optionCreated, optionLoading } = useSelector((store) => store.options);
   const [questionData, setQuestionData] = useState({
     question: {
@@ -153,6 +153,11 @@ export default function AddQuestion() {
     }
   }
 
+  if(optionCreated === true) {
+    dispatch(defaultError());
+    dispatch(changeOptionCreated());
+  }
+
   if(error === false && optionCreated === false) {
     return(
       <>
@@ -194,8 +199,8 @@ export default function AddQuestion() {
   return(
     <>
     {loading && <div className="add-quiz-loadingbar"><LoadingBar /></div>}
-    {error !== null && error !== false && <Alert message="failed to create quiz😞" title="Failed" />}
-    {error === false && <Alert message="Question created successfully 🎉" title="Success" />}
+    {successful !== null && successful !== true && <Alert message="failed to create quiz😞" title="Failed" />}
+    {successful === true && <Alert message="Question created successfully 🎉" title="Success" />}
     <form className="add-question-form" onSubmit={handleSubmit}>
         <div className="form-break">
         <div className="add-quiz-input">
