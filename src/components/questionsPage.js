@@ -187,7 +187,7 @@ export default function QuestionsPage() {
 
   return (
     <>
-      <CSSTransition onExit={() => handleTimeout()} onEntered={() => setShowAnim(false)} in={showAnim} timeout={ques[quesCount].time} classNames={ques[quesCount].time === 60000 ? 'example1' : 'example'} unmountOnExit>
+      <CSSTransition onExit={() => handleTimeout()} onEntered={() => setShowAnim(false)} in={showAnim} timeout={ques[quesCount].time} classNames={ques[quesCount].time === 90000 ? 'example1' : 'example'} unmountOnExit>
         <div className="time-bar-wrapper"><div className={isDarkMode ? 'time-bar red-bg' : 'time-bar blue-bg'} /></div>
       </CSSTransition>
       <div className={isDarkMode ? 'question-container black-bg' : 'question-container primary-bg'}>
