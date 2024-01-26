@@ -104,7 +104,7 @@ export default function HomePage() {
               {projects.length > 0 ?
               projects.map((project) => (
                 <div key={project.title} className={isDarkMode ? "project-container blue-bg" : "project-container grey-bg"}>
-                  <img className="project-img" src={project.image_url} alt="project-pic" />
+                  <img className="project-img" src={project.img_url} alt="project-pic" />
                   <div className="view-project">
                     <button type="button" className="see-project">See Project</button>
                     <div className="project-detail">
