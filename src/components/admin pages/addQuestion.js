@@ -216,7 +216,7 @@ export default function AddQuestion() {
         <div className="add-quiz-input">
           <label>Question</label>
           <br />
-          <input name="question_text" onChange={handleInputChange} type="text" required className="input" />
+          <textarea name="question_text" onChange={handleInputChange} required className="large-input" />
         </div>
         </div>
         <div className="form-break">

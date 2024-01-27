@@ -30,7 +30,7 @@ export default function CourseMaterials() {
     {materials.map((material) => (
       <div className="delete-qtn-container" key={material.id}>
         <p className="question-del">{material.title}</p>
-        <Link to={material.file_url} className='view-btn' >View</Link>
+        <a href={material.file_url} className='view-btn' >View</a>
       </div>
     ))}
     </>

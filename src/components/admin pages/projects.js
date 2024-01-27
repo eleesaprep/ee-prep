@@ -77,7 +77,7 @@ export default function Projects() {
           <div className="add-quiz-input">
             <label>Image URL</label>
             <br />
-            <input required type="text" name="image_url" onChange={handleInputChange} className="input" />
+            <input required type="text" name="img_url" onChange={handleInputChange} className="input" />
           </div>
           </div>
           

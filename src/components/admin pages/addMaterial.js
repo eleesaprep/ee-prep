@@ -67,7 +67,7 @@ export default function AddMaterial() {
         <div className="add-quiz-input">
           <label>Material Description</label>
           <br />
-          <input name="description" onChange={handleInputChange} type="text" required className="input" />
+          <textarea name="description" onChange={handleInputChange} required className="large-input" />
         </div>
         </div>
         <div className="form-break">
