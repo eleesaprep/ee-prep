@@ -997,9 +997,9 @@ li {
 
 .user-update-form {
   box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
-  width: 80%;
+  width: 90%;
   margin: 2em auto;
-  padding: 3em;
+  padding: 1em;
   border-radius: 20px;
   background: rgb(143,175,222);
   background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
@@ -1134,6 +1134,10 @@ li {
   .sem {
     margin-left: -14em;
   }
+
+  .user-update-form {
+    width: 70%;
+  }
 }
 
 @media screen and (min-width: 1201px) {
@@ -1234,8 +1238,12 @@ li {
   }
 
   .ques-img {
-    width: 40%;
+    width: 30%;
     /* height: 200px; */
+  }
+
+  .user-update-form {
+    width: 30%;
   }
 }
 
