@@ -33,7 +33,7 @@
 
 ### Server
 
-This is the client-side implementation of the project. The server code can be found [here](https://github.com/Mylo16/quiz-backend-app/).
+This is the client-side implementation of the project. The server code can be found [here](https://github.com/Mylo16/quiz-app-backend/).
 
 ## 🛠 Built With <a name="built-with"></a>
 
