@@ -669,16 +669,8 @@ li {
   cursor: pointer;
 }
 
-.courses:nth-child(3n - 1) {
-  background-color: rgb(222, 138, 248);
-}
-
-.courses:nth-child(3n) {
+.courses {
   background-color: blue;
-}
-
-.courses:nth-child(3n + 1) {
-  background-color: rgb(187, 255, 0);
 }
 
 .courses-container {
