@@ -670,7 +670,7 @@ li {
 }
 
 .courses {
-  background-color: blue;
+  background-color: var(--primary-color);
 }
 
 .courses-container {
