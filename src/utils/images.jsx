@@ -33,9 +33,13 @@ import email from '../assets/icons8-email-48.png';
 import background from '../assets/engineering-lab.jpg';
 import addQuiz from '../assets/icons8-add-properties-48.png';
 import addQuestion from '../assets/icons8-questions-64.png';
+import view from '../assets/view.png';
+import noView from '../assets/no-view.png';
 
 const images = {
   ship,
+  view,
+  noView,
   addQuestion,
   addQuiz,
   background,

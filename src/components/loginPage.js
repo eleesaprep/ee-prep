@@ -9,6 +9,7 @@ import { Link } from 'react-router-dom';
 export default function LoginPage() {
   const [userData, setUserData] = useState({});
   const [noUser, setNoUser] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { loading } = useSelector((store) => store.user);
 
@@ -23,6 +24,11 @@ export default function LoginPage() {
       }
     });
   };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prevState => !prevState);
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setUserData({
@@ -48,7 +54,8 @@ export default function LoginPage() {
             <div className="input">
               <label htmlFor="password">Password</label>
               <br />
-              <input type="password" id="password" name="password" onChange={handleInputChange} required className="password-input" />
+              <input type={showPassword ? "text" : "password"} id="password" name="password" onChange={handleInputChange} required className="password-input" />
+              <img className='show-password' src={ showPassword ? images.view : images.noView } alt='show-password' onClick={togglePasswordVisibility}/>
             </div>
             <input type="submit" className="submit" value="Login" />
           </form>

@@ -7,6 +7,7 @@ import LoadingBar from './homepage/loadingBar';
 export default function SignupPage() {
   const [userData, setUserData] = useState({ user: {} });
   const dispatch = useDispatch();
+  const [confirm, setConfirm] = useState('');
   const [hasUpperCase, setHasUpperCase] = useState(false);
   const [hasLowerCase, setHasLowerCase] = useState(false);
   const [hasDigit, setHasDigit] = useState(false);
@@ -14,6 +15,7 @@ export default function SignupPage() {
   const [isLengthValid, setIsLengthValid] = useState(false);
   const [isPasswordValid, setIsPasswordValid] = useState(false);
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const { loading, error } = useSelector((store) => store.user);
 
   useEffect(() => {
@@ -22,12 +24,19 @@ export default function SignupPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if(isPasswordValid) {
+    if(isPasswordValid && password === confirm) {
       dispatch(userSignup(userData));
     }
-    else {
+    else if(password !== confirm) {
+      alert("Passwords do not match");
+    }
+    else if (!isPasswordValid) {
       alert("Invalid password input; all requirements must pass");
     }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(prevState => !prevState);
   };
 
   const validatePassword = (value) => {
@@ -48,6 +57,9 @@ export default function SignupPage() {
     if(name === "password") {
       setPassword(value);
     }
+    if(name === "confirm") {
+      setConfirm(value);
+    }
     setUserData({
       user: {
         ...userData.user,
@@ -65,6 +77,7 @@ export default function SignupPage() {
           { error === true && <p className="invalid-login">Username already exist ❗❗</p>}
           <div className={loading ? 'login-loading' : 'no-loading'}><LoadingBar /></div>
           <form onSubmit={handleSubmit} className="login-form">
+            <div className='signup-form-break'>
             <div className="input">
               <label>Username</label>
               <br />
@@ -76,19 +89,29 @@ export default function SignupPage() {
               <br />
               <input name="email" onChange={handleInputChange} type="email" required className="input" />
             </div>
-
+            </div>
+            <div className='signup-form-break'>
             <div className="input">
               <label>Full Name</label>
               <br />
               <input name="full_name" onChange={handleInputChange} type="text" required className="input" />
             </div>
-
+            <div>
+              
+            </div>
             <div className="input">
               <label>Password</label>
               <br />
-              <input name="password" onChange={handleInputChange} type="password" required className="input" />
+              <input name="password" onChange={handleInputChange} value={password} type={showPassword ? 'text' : 'password'} required className="input" />
+              <img className='show-password' src={ showPassword ? images.view : images.noView } alt='show-password' onClick={togglePasswordVisibility}/>
+            </div>
             </div>
 
+
+            <div className="input">
+              <label>Confirm Password</label><br/>
+              <input name="confirm" type="password" required onChange={handleInputChange}/>
+            </div>
             <ul>
               <li className='password-check'>
                 <p>Password must include an upper case</p>
@@ -111,8 +134,9 @@ export default function SignupPage() {
                 <img src={isLengthValid ? images.correct : images.wrong} alt="password-check"/>
               </li>
             </ul>
-
-            <input type="submit" className="submit" value="Sign Up" />
+            <div className='signup-btn-container'>
+              <input type="submit" className="submit" value="Sign Up" />
+            </div>
           </form>
 
           <div className="login-link">
