@@ -1,0 +1,1367 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,800;1,300&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --primary-color: #3e53a0;
+  --grey-color: #d2caca;
+  --grey-1: rgb(239, 239, 250);
+}
+
+a {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.main-page {
+  padding: 1em;
+}
+
+/*** BACKGROUND DESIGN ***/
+
+.dark-mode {
+  background-color: rgba(11, 19, 36);
+  min-height: 100vh;
+  color: white;
+  z-index: -2;
+  overflow-x: hidden;
+}
+
+.light-mode {
+  overflow-x: hidden;
+  z-index: -2;
+}
+
+.black-txt {
+  color: black;
+}
+
+.white-txt {
+  color: white;
+}
+
+.grey-bg {
+  background-color: var(--grey-1);
+}
+
+.black-bg {
+  background-color: rgb(41, 39, 39);
+}
+
+.primary-bg {
+  background-color: var(--grey-1);
+}
+
+.blue-bg {
+  background-color: rgb(15, 15, 71);
+}
+
+.red-bg {
+  background-color: red;
+}
+
+.shape-ellipse {
+  position: absolute;
+  right: 0%;
+  top: 10%;
+  z-index: 0;
+}
+
+.shape-rectangle {
+  position: absolute;
+  right: 0%;
+  top: 5.5%;
+}
+
+.shape-ship {
+  position: absolute;
+  right: 0%;
+  width: 5em;
+  top: 50%;
+}
+
+.shape-ellipse1 {
+  position: absolute;
+  top: 40%;
+}
+
+.shape-ellipse2 {
+  position: absolute;
+  top: 41.5%;
+}
+
+/***** MOBILE DEVELOPMENT *****/
+
+/*** LOGIN/SIGNUP ***/
+.login-body,
+.signup-body,
+.change-password {
+  background: rgb(143,175,222);
+  background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
+  height: 100vh;
+  margin-inline-start: 0%;
+  margin-block-start: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.show-password {
+  margin-left: -2em;
+}
+
+.password-check {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.password-check p {
+  font-size: 0.9em;
+}
+
+.password-check img {
+  width: 1.5em;
+}
+
+.right-col {
+  display: none;
+}
+
+.login-body h1,
+.signup-body h1,
+.change-password h1 {
+  color: green;
+}
+
+.inspire-text {
+  font-size: 1.2em;
+}
+
+.login-form {
+  margin-top: 2em;
+}
+
+.input label {
+  font-size: 1em;
+  color: #0a0a0aad;
+}
+
+.input input,
+.add-quiz-input input,
+.large-input,
+.select {
+  width: 20em;
+  height: 2.5em;
+  font-size: 1em;
+  margin-bottom: 1em;
+  border-radius: 5px;
+  border: none;
+  padding: 0 1em;
+}
+
+.add-quiz-input .large-input {
+  height: 5em;
+  background-color: var(--grey-color);
+}
+
+.submit {
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.2em;
+  width: 16.5em;
+  margin-top: 1em;
+  border: none;
+  height: 2.5em;
+}
+
+.invalid-login {
+  color: red;
+  font-style: italic;
+  font-size: 1.1em;
+}
+
+.login-link,
+.signup-link {
+  display: flex;
+  gap: 1em;
+}
+
+.to-signup,
+.to-login {
+  font-size: 1.1em;
+}
+
+.sign-up,
+.login {
+  font-size: 1.2em;
+  font-weight: bold;
+  font-style: italic;
+}
+
+/***** NAVBAR *****/
+
+.nav-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 1em;
+}
+
+.light,
+.dark {
+  width: 2.3em;
+  height: 2.3em;
+  padding: 0.3em;
+  background-color: var(--grey-color);
+  border-radius: 50%;
+  transition: 0.5s;
+}
+
+.light:hover,
+.dark:hover {
+  background-color: rgb(65, 56, 56);
+}
+
+.toggle-dark-mode:hover {
+  background-color: rgba(0, 0, 0, 0.527);
+}
+
+.nav-links {
+  background-color: var(--primary-color);
+  padding: 0 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 35%;
+  border-radius: 20px;
+  margin-right: 2em;
+  position: relative;
+}
+
+.profile-container {
+  display: flex;
+  align-items: center;
+}
+
+.arrow-down {
+  width: 1em;
+  height: 1em;
+}
+
+.profile {
+  width: 2.5em;
+}
+
+.profile-details {
+  background-color: var(--grey-1);
+  padding: 0.5em;
+  position: absolute;
+  width: 100%;
+  top: 100%;
+  z-index: 999;
+  transition: 0.5s;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  display: block;
+}
+
+.sign-out-btn,
+.profile-link {
+  display: block;
+  border: none;
+  font-size: 1em;
+  color: var(--primary-color);
+  cursor: pointer;
+  transition: 0.5s;
+  transform: scale(1);
+}
+
+.sign-out-btn:hover,
+.profile-link:hover {
+  transform: scale(1.2);
+}
+
+.none {
+  background-color: var(--grey-1);
+  padding: 0.5em;
+  position: absolute;
+  top: 100%;
+  z-index: 999;
+  display: none;
+}
+
+/***** HOMEPAGE *****/
+
+/***** SIDEBAR *****/
+
+.sidebar {
+  height: 100vh;
+  width: 50%;
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  background-color: var(--primary-color);
+  transition: 0.8s;
+  z-index: 999;
+}
+
+.eleesa-logo {
+  width: 4em;
+  border-radius: 50%;
+  margin: 1em;
+}
+
+.desktop-sidebar-container {
+  display: none;
+}
+
+.no-sidebar {
+  position: absolute;
+  left: -50%;
+  transition: 0.8s;
+}
+
+.side-links {
+  padding-inline-start: 0%;
+  margin-left: 1em;
+}
+
+.side-link {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  gap: 1em;
+  margin-bottom: 2em;
+}
+
+.side-link a {
+  color: rgb(224, 204, 204);
+}
+
+.side-link img {
+  width: 2em;
+}
+
+.menu-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  width: 2.2em;
+}
+
+/*** col-2 ***/
+
+.trigram {
+  width: 3em;
+  display: block;
+  background-color: white;
+  border-radius: 10px;
+}
+
+.no-trigram {
+  display: none;
+}
+
+.progress-text {
+  padding: 0.5em;
+  margin-top: 2em;
+  background-color: var(--grey-1);
+  border-left: solid 0.5em var(--primary-color);
+}
+
+.col-2 {
+  display: block;
+}
+
+.progress-bar {
+  justify-content: center;
+  display: flex;
+  margin-top: 2em;
+}
+
+.desktop-progress {
+  display: none;
+}
+
+.phone-progress {
+  display: block;
+  padding-top: 1em;
+}
+
+.sub-progress {
+  display: flex;
+}
+
+.progress-name {
+  width: 10em;
+  margin-right: 170px;
+}
+
+.linear-progresses {
+  width: 90%;
+  margin: 1em auto;
+  box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.61);
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.svg {
+  overflow: visible;
+}
+
+
+/*** ANNOUNCEMENT ***/
+
+.announcement-container {
+  background-color: var(--primary-color);
+  color: white;
+  border-radius: 10px;
+  margin-top: 3em;
+  padding: 0.5em;
+  z-index: 10;
+  position: relative;
+}
+
+.general-announcement {
+  background: var(--primary-color);
+  border-radius: 10px 10px 0 0;
+  padding: 0.5em;
+  font-weight: 400;
+  text-align: center;
+}
+
+.announcement-title {
+  font-size: 1.2em;
+}
+
+/*** PROJECT ***/
+
+.eleesa-projects {
+  display: block;
+  text-align: center;
+}
+
+.projects {
+  margin-top: 3em;
+}
+
+.projects-container {
+  display: flex;
+  margin-top: 1em;
+  overflow-x: scroll;
+  gap: 0.3em;
+}
+
+.projects-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.projects-container::-webkit-scrollbar-track {
+  border-radius: 6px;
+}
+
+.projects-container::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: var(--primary-color);
+}
+
+.project-container {
+  width: 23.7em;
+  position: relative;
+  padding: 0.3em;
+}
+
+.project-img {
+  width: 23em;
+  height: 15em;
+  border-radius: 7px;
+}
+
+.see-project {
+  background-color: green;
+  color: white;
+  border-radius: 5px;
+  font-size: 1.1em;
+  padding: 0.3em;
+  border: none;
+}
+
+.view-project {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.project-title {
+  font-size: 1.1em;
+}
+
+.project-detail {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.project-manage,
+.announcement-manage {
+  display: flex;
+  width: 80%;
+  margin: auto;
+  align-items: flex-start;
+  justify-content: space-between;
+  box-shadow: 0px 2px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+  margin-bottom: 1em;
+}
+
+.project-manage button,
+.announcement-manage button {
+  background-color: red;
+  color: white;
+  padding: 0.2em 0.5em;
+}
+
+/*** LOADING BAR ***/
+.loadingbar-container {
+  display: flex;
+  gap: 0.7em;
+}
+
+.loadingbar-container div {
+  height: 3.5em;
+  border-radius: 5px;
+  width: 0.3em;
+  background-color: var(--primary-color);
+}
+
+.login-loading {
+  position: absolute;
+  top: 0%;
+  bottom: 0%;
+  left: 0%;
+  right: 0%;
+  background-color: #f0efefa8;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.no-loading {
+  display: none;
+}
+
+@keyframes loadingAnim {
+  0% {
+    transform: scaleY(1);
+  }
+
+  100% {
+    transform: scaleY(0.2);
+    border-radius: 50%;
+  }
+}
+
+.b3 {
+  animation: loadingAnim 1s linear infinite;
+}
+
+.b2,
+.b4 {
+  animation: loadingAnim 1s linear 0.25s infinite;
+}
+
+.b1,
+.b5 {
+  animation: loadingAnim 1s linear 0.5s infinite;
+}
+
+/***  COURSES PAGE  ***/
+
+.courses-page {
+  padding: 1em;
+}
+
+.course-scroll {
+  display: flex;
+  align-items: center;
+}
+
+.course-scroll p {
+  font-size: 1.5em;
+  margin-right: 1em;
+}
+
+.next-courses {
+  margin-top: 1em;
+  display: flex;
+}
+
+.next-courses img {
+  margin-right: 1em;
+  background-color: var(--grey-color);
+  padding: 0.1em;
+  border-radius: 5px;
+  width: 2em;
+}
+
+.year-courses {
+  min-width: 100vw;
+}
+
+.courses {
+  border-radius: 7px;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto 1em auto;
+}
+
+.course-code,
+.course-name {
+  color: white;
+}
+
+.course-code {
+  background-color: rgb(248, 132, 103);
+  color: black;
+  width: 4em;
+  white-space: normal;
+  text-align: center;
+  font-size: 1.2em;
+  border-radius: 30px;
+  height: 4em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.1em;
+}
+
+.course-name {
+  font-size: 1.2em;
+  width: 60%;
+  margin: 0 0.3em 0 0.3em;
+  white-space: normal;
+}
+
+.enroll,
+.unenroll,
+.take-quiz {
+  display: flex;
+  align-items: center;
+  width: 20%;
+}
+
+.enroll p,
+.unenroll p,
+.take-quiz p {
+  font-weight: 500;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.courses {
+  background-color: var(--primary-color);
+}
+
+.courses-container {
+  display: flex;
+  align-self: center;
+  flex-direction: row;
+  overflow-x: auto;
+  width: 100vw;
+  white-space: nowrap;
+  scroll-behavior: smooth;
+  margin-left: -1em;
+  padding: 1em 0;
+}
+
+.course-material-header {
+  margin-left: 1em;
+}
+
+.courses-container::-webkit-scrollbar {
+  display: none;
+}
+
+.year {
+  font-size: 1.4em;
+  text-align: center;
+}
+
+.sem {
+  font-size: 1.2em;
+  text-align: center;
+}
+
+/* ENROLLED COURSES */
+
+.enrolled-title {
+  font-size: 1.5em;
+  margin-left: 0.5em;
+  margin-top: 2em;
+}
+
+.quiz-text {
+  margin: 0.5em;
+}
+
+/* ALERT MESSAGE */
+@keyframes alert {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+.alert-container {
+  background-color: var(--grey-1);
+  width: 70%;
+  right: 0%;
+  position: fixed;
+  z-index: 999;
+  border-radius: 10px;
+  padding: 1em;
+  animation: alert 1s linear;
+}
+
+.no-alert {
+  display: none;
+}
+
+.alert-title-wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.close-alert {
+  width: 1.5em;
+}
+
+.alert-title {
+  font-size: 1.2em;
+  color: red;
+  margin-left: 0.7em;
+}
+
+/*** QUIZZES ***/
+
+.course-wrap {
+  border-radius: 7px;
+  padding: 0.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 95%;
+  margin: 0 auto 1em auto;
+  background-color: var(--primary-color);
+}
+
+.dialog {
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  left: 0%;
+  bottom: 0%;
+  background-color: rgba(5, 5, 5, 0.315);
+  display: flex;
+  backdrop-filter: blur(4px);
+  z-index: 999;
+}
+
+.quiz-wrap {
+  background-color: white;
+  border: 1px solid black;
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+  padding: 1em;
+}
+
+.quiz-detail {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1em;
+  padding: 0.3em;
+}
+
+.quiz-detail:nth-child(odd) {
+  background-color: var(--grey-color);
+}
+
+.quiz-detail:nth-child(even) {
+  background-color: var(--grey-1);
+}
+
+.quiz-loading,
+.course-loading {
+  width: 30%;
+  margin: auto;
+}
+
+.duration {
+  display: flex;
+  align-items: center;
+}
+
+.clock {
+  width: 2em;
+}
+
+/***** QUESTIONS PAGE *****/
+
+.question-container {
+  width: 95%;
+  border-radius: 10px;
+  margin: 4em auto;
+  padding: 1em;
+}
+
+.ques-img {
+  width: 100%;
+  /* height: 200px; */
+}
+
+.radio-container {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 1em;
+}
+
+.radio-container2 {
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 0.2em;
+}
+
+.radio-container img {
+  width: 100%;
+}
+
+.next-button {
+  background-color: green;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 1em;
+  text-align: center;
+  padding: 0.4em;
+  border: none;
+  color: white;
+  font-size: 1.2em;
+}
+
+.show-results {
+  color: white;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+}
+
+/** CSS ANIMATION **/
+
+.time-bar-wrapper {
+  width: 100%;
+  
+  /* overflow: hidden; */
+}
+
+.time-bar {
+  width: 100%;
+  height: 2px;
+  margin-top: 0;
+  position: absolute;
+}
+
+.example-enter,
+.example1-enter {
+  transform: translateX(0);
+}
+
+.example-enter-active {
+  transform: translateX(-100%);
+  transition: transform 30000ms ease-in-out;
+}
+
+.example1-enter-active {
+  transform: translateX(-100%);
+  transition: transform 90000ms ease-in-out;
+}
+
+.example-exit,
+.example1-exit {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.example-exit-active,
+.example1-exit-active {
+  opacity: 0;
+  transform: translateX(-100%);
+  transition: transform 0ms;
+}
+
+/***** RESULTS PAGE *****/
+
+.results-container {
+  padding-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.revision-container {
+  margin-top: 1em;
+  width: 90%;
+  margin: auto;
+}
+
+.revision-question {
+  padding: 0.5em;
+  border: 1px solid rgb(12, 13, 63);
+  margin-bottom: 0.5em;
+  background-color: rgba(203, 211, 211, 0.479);
+  border-radius: 1em;
+}
+
+.mark {
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.correct-answer {
+  color: rgb(23, 23, 92);
+  font-weight: 600;
+}
+
+/***** FOOTER *****/
+
+.footer {
+  margin-top: 3em;
+  background-color: rgb(41, 39, 39);
+  color: white;
+  padding: 1em;
+}
+
+.about-us {
+  font-size: 1.4em;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.useful-links {
+  display: flex;
+  justify-content: center;
+}
+
+.web-link {
+  margin-right: 1em;
+}
+
+.ig,
+.email {
+  display: flex;
+  gap: 0.5em;
+  align-items: center;
+}
+
+.copy-rights {
+  text-align: center;
+  background-color: rgba(11, 19, 36);
+  padding: 0.5em;
+  font-size: 1.2em;
+  color: white;
+}
+
+.user-update-form {
+  box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  margin: 2em auto;
+  padding: 1em;
+  border-radius: 20px;
+  background: rgb(143,175,222);
+  background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
+}
+
+.user-update-form input {
+  width: 100%;
+}
+
+/***** ADD QUIZ *****/
+.add-quiz-loadingbar {
+  position: absolute;
+  bottom: 0;
+  right: 0%;
+  top: 0%;
+  left: 0%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(3px);
+  z-index: 0;
+}
+
+.add-quiz-form,
+.add-course-form,
+.add-question-form,
+.add-project-form,
+.add-material-form,
+.announcement-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.show-announcements,
+.show-projects {
+  margin-top: 2em;
+}
+
+.add-quiz-input input,
+.select {
+  background-color: var(--grey-color);
+}
+
+/***** PASSWORD RESET *****/
+.ee-prep {
+  color: var(--primary-color);
+  text-align: center;
+}
+
+.inspire-text {
+  text-align: center;
+}
+
+/***** ADMIN STYLES *****/
+.delete-quiz {
+  display: flex;
+  width: 70%;
+  margin: auto;
+  justify-content: space-between;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+}
+
+.dq-course-name {
+  width: 15em;
+}
+
+.materials-btn {
+  color: white;
+  font-size: 1em;
+  padding: 0.1em;
+  height: 1.8em;
+  background-color: #3e53a0;
+  margin-bottom: 1em;
+  width: 6em;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: red;
+  color: white;
+  font-size: 1em;
+  padding: 0.3em;
+  height: 2em;
+  width: 6em;
+  cursor: pointer;
+}
+
+.delete-qtn-container {
+  display: flex;
+  width: 70%;
+  margin: 2em auto;
+  box-shadow: 0 4px 6px 0 rgba(0, 0, 0, 0.61);
+  padding: 1em;
+  justify-content: space-between;
+}
+
+.question-del {
+  width: 70%;
+}
+
+
+/********** DESKTOP SCREEN **********/
+@media screen and (min-width: 768px) and (max-width: 1200px) {
+  .courses-page {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .ques-img {
+    width: 70%;
+    /* height: 200px; */
+  }
+
+  .year-courses {
+    min-width: 100vw;
+    justify-content: flex-start;
+  }
+
+  .courses {
+    width: 70vw;
+    margin: 1em;
+  }
+
+  .year {
+    margin-left: -12em;
+  }
+
+  .sem {
+    margin-left: -14em;
+  }
+
+  .user-update-form {
+    width: 70%;
+  }
+}
+
+@media screen and (min-width: 1201px) {
+  .year-courses {
+    display: flex;
+  }
+
+  .courses-page {
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .courses {
+    width: 35vw;
+    margin-left: 2em;
+  }
+
+  .enrolled-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .footer-container {
+    transform: translateY(3em);
+  }
+
+  /***** SESSION STYLING *****/
+
+  .session-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    background: rgb(143,175,222);
+    background: linear-gradient(108deg, rgba(143,175,222,1) 40%, rgba(27,111,205,1) 54%);
+  }
+
+  .session-container {
+    display: flex;
+    width: 95%;
+    margin: auto;
+    height: 90vh;
+    position: absolute;
+    justify-content: center;
+  }
+
+  .login-body {
+    width: 25em;
+    height: 65vh;
+  }
+
+  .signup-body {
+    width: 50em;
+    height: 65vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .signup-form-break {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .login-form {
+    width: 90%;
+  }
+  
+  .signup-body .input {
+    width: 90%;
+  }
+
+  .submit {
+    margin-bottom: 0;
+  }
+
+  .signup-btn-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 0.7em;
+  }
+
+  .right-col {
+    width: 55%;
+    display: block;
+  }
+
+  .right-col-content {
+    position: relative;
+  }
+
+  .background {
+    width: 100%;
+    height: 65vh;
+  }
+
+  .login-logo {
+    width: 15em;
+    border-radius: 50%;
+  }
+
+  .background-cover {
+    position: absolute;
+    top: 0;
+    bottom: 1.4%;
+    right: 0;
+    left: 0;
+    background-color: #151d3d88;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*** ADD QUIZ ***/
+  .form-break {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+  }
+
+  .ques-img {
+    width: 30%;
+    /* height: 200px; */
+  }
+
+  .user-update-form {
+    width: 30%;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .side-bar {
+    left: 20%;
+  }
+
+  .phone-sidebar {
+    display: none;
+  }
+
+  .close-btn {
+    display: none;
+  }
+
+  .desktop-container {
+    display: flex;
+    height: 89vh;
+  }
+
+  .desktop-sidebar-container {
+    display: block;
+    position: relative;
+    transform: translateY(-5em);
+    height: 97.2vh;
+    width: 250px;
+    background-color: var(--primary-color);
+    z-index: 999;
+  }
+
+  .outlet {
+    width: 100%;
+    height: 89vh;
+    overflow: scroll;
+  }
+
+  .outlet::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .outlet::-webkit-scrollbar-track {
+    border-radius: 8px;
+  }
+
+  .outlet::-webkit-scrollbar-thumb {
+    border-radius: 8px;
+    background-color: var(--primary-color);
+  }
+
+  .desktop-progress {
+    display: block;
+  }
+
+  .phone-progress {
+    display: none;
+  }
+
+  .progresses {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .linear-progresses {
+    width: 18em;
+    display: flex;
+    backdrop-filter: blur(10px);
+    margin: 0;
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    scale: 80%;
+    padding: 1em;
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, 0.3);
+  }
+
+  .sub-progress {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .grade {
+    font-size: 1.5em;
+  }
+
+  .progress-name {
+    text-align: center;
+    margin: 0;
+    font-size: 1.3em;
+  }
+
+  .status-img {
+    width: 2em;
+  }
+
+
+}
